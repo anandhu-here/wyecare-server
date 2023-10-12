@@ -1,0 +1,14 @@
+POST http://localhost:8080/shifts/assign
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsImVtYWlsIjoidHVkb3JAZ21haWwuY29tIiwicm9sZSI6MSwiaWF0IjoxNjkzOTUzOTk5LCJleHAiOjE2OTQwNDAzOTl9.HBnUJa_8mwrs4Rsw6q2emXn2UbXih7shT9XDpJUQl-E
+
+{
+   "id":25,
+   "longday":[{"carer_id":1, "name":"anandhu"}],
+   "night":[{"carer_id":2, "name":"Satheesh"}]
+}
+
+# GET http://localhost:3000/shifts/list/home
+# Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImVtYWlsIjoibmV0bGV5QGdtYWlsLmNvbSIsInJvbGUiOiJIT01FIiwiaWF0IjoxNjczOTA1NDY3LCJleHAiOjE2NzM5OTE4Njd9.YnDdEImItKRpRdT8_8-mv6SkneW8e05O-jwVEVw-b5A
+
+

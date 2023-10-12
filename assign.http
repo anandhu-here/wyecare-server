@@ -1,0 +1,13 @@
+POST http://localhost:3000/shifts/assign
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhbmFuZGh1QGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY3NDM0NTExNiwiZXhwIjoxNjc0NDMxNTE2fQ.6gZ3c4mAzKJ8HzAkvEjKeNUn8AHL-710Ene7b3YdNTw
+
+{
+    "id":25,
+    "carers":[
+        {
+            "type":"longday",
+            "id":1
+        }
+    ]
+}

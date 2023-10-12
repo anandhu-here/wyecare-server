@@ -1,0 +1,15 @@
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+    "email":"tudor@gmail.com",
+    "password":"blackbird",
+    "company":"Tudor Lodge",
+    "dob":"1997-08-14",
+    "postcode":"TS14PR",
+    "address":"12 Harford Street",
+    "city":"Middlesbrough",
+    "phone":"07435382817",
+    "role":2,
+    "agency_id":1
+}

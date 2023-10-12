@@ -1,0 +1,15 @@
+POST http://localhost:3000/signup
+Content-Type: application/json
+
+{
+    "email":"ashley@gmail.com",
+    "password":"blackbird",
+    "role":"HOME"
+}
+# POST http://localhost:3000/update/profile
+# Content-Type: application/json
+# Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJuZXRsZXlAZ21haWwuY29tIiwicm9sZSI6IkhPTUUiLCJpYXQiOjE2NzQ0NDIwNzEsImV4cCI6MTY3NDUyODQ3MX0.hWD8vMdcFBe-x9GE_AUH0gkNUteebkZwoz9JFO2jZHo
+
+# {
+#     "company":"Netley Court"
+# }

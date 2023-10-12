@@ -1,0 +1,7 @@
+POST http://localhost:3000/shifts/assign/cancel
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhbmFuZGh1QGdtYWlsLmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY3NDI1NTYzOCwiZXhwIjoxNjc0MzQyMDM4fQ.B-vznq-CVUohCnrdyrD1Rvisw9HwSZnZ5wLsAFISXm8
+
+{
+    "id":7
+}

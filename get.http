@@ -1,0 +1,2 @@
+GET http://localhost:8080/get/agents
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImVtYWlsIjoiYnZjQGdtYWlsLmNvbSIsInJvbGUiOjAsImlhdCI6MTY5MzY5MDMwMSwiZXhwIjoxNjkzNzc2NzAxfQ.o6qicYsVKLXw80jlodttcv16GXiBabD4mLs5-xQvO8I

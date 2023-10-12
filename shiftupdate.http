@@ -1,0 +1,11 @@
+POST http://localhost:3000/shifts/update
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJuZXRsZXlAZ21haWwuY29tIiwicm9sZSI6IkhPTUUiLCJpYXQiOjE2NzQyNTMyNzQsImV4cCI6MTY3NDMzOTY3NH0.Epg0L-yLMC4CYYc7MHqglqzwknDhEfr2jCF8QO-sHQ4
+
+{
+    "id":1,
+    "longday":1,
+    "night":1,
+    "late":2,
+    "early":3
+}

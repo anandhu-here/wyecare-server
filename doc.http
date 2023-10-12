@@ -1,0 +1,12 @@
+POST http://localhost:3000/docname/add
+Content-Type: application/json
+
+{
+    "names":[
+
+        {"name":"passport"},
+        {"name":"brp"},
+        {"name":"national insurance"},
+        {"name":"training certificate merged"}
+    ]
+}

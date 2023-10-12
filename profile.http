@@ -1,0 +1,8 @@
+POST http://localhost:8080/verify-user
+Content-Type: application/json
+
+{
+    "email":"netley@gmail.com",
+    "password":"blackbird",
+    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImVtYWlsIjoibmV0bGV5QGdtYWlsLmNvbSIsInJvbGUiOiJIT01FIiwiaWF0IjoxNjkyNjY1MDQ5LCJleHAiOjE2OTI3NTE0NDl9.ExDkoR3M00nrv_3CjkemDaT6FKREkuxIABtvqmcLxYw"
+}
