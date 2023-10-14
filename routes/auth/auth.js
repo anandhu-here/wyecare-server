@@ -160,11 +160,11 @@ module.exports = (app, db) => {
         const {email} = req.body;
         try{
             const randomHash = getRandomHash(10);
-            console.log(randomHash, email)
+            console.log(randomHash, email, "fuckkk")
             const codeQuery = await db.query(
                 `update home_guest_user set code = $2 where username = $1`, [email, randomHash]
             )
-            res.status(200).send({message:"Success"})
+            res.status(200).send({hash:randomHash})
 
         }
         catch(error){
