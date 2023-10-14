@@ -368,10 +368,19 @@ module.exports = (app, db, io) =>{
                     const update = await db.query(`
                         update shift_home set completed = $1::jsonb[] where id = ${shift_home_id}
                     `, [updated])
+                    res.status(201).send({message:'success'});
                 }
+                else{
+                    res.status(403).send({message:'Could not verify todays shift'});
+                }
+
+                
+            }
+            else{
+
+                res.status(404).send({message:'Employeer not found'});
             }
             
-            res.status(201).send(timesheet.rows[0]);
         }
         catch(e){
             console.log(e)
