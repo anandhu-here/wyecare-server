@@ -159,7 +159,7 @@ module.exports = (app, db) => {
     app.post('/login-guest', async(req, res)=>{
         try {
             const {email, password} = req.body;
-            const randomHash = getRandomHash(32);
+            const randomHash = getRandomHash(10);
 
             const query = await db.query(`
                 select * from home_guest_user where username = $1
@@ -168,7 +168,7 @@ module.exports = (app, db) => {
             const codeQuery = await db.query(
                 `update home_guest_user set code = ${randomHash} where username = ${email}`
             )
-            
+
             if(query.rows.length === 0){
                 res.status(403).send({message:'Unauthorized'})
             }
