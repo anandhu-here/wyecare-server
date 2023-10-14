@@ -359,6 +359,7 @@ module.exports = (app, db, io) =>{
             const {shift_home_id, carer_id, agency_id, date, sign, home_id, pattern, updated, hash} = req.body;
             const shiftquery = await db.query(`select sh.code from home_guest_user sh where home_id = ${home_id}`);
             if(shiftquery.rows.length > 0){
+                console.log(shiftquery.rows[0].code, hash);
                 if(shiftquery.rows[0].code === hash){
                     const timesheet = await db.query(`
                     insert into timesheet (signature, carer_id, home_id, agency_id, date, shift_home_id, pattern)
