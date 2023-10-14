@@ -208,9 +208,6 @@ module.exports = (app, db) => {
                 select * from users where email = $1
             `, [email])
 
-            const codeQuery = await db.query(`
-                update home_guest_user set code = 
-            `)
             if(userQuery.rows.length > 0){
                 const user = userQuery.rows[0];
                 const token = createToken(user);
