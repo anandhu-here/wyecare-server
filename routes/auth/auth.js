@@ -162,7 +162,7 @@ module.exports = (app, db) => {
             const randomHash = getRandomHash(10);
             console.log(randomHash, email)
             const codeQuery = await db.query(
-                `update home_guest_user set code = 'anandhu' where username = ${email}`
+                `update home_guest_user set code = 'anandhu' where username = $1`, [email]
             )
             res.status(200).send({message:"Success"})
 
