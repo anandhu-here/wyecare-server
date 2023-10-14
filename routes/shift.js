@@ -1,8 +1,23 @@
-const { verifyToken, checkShiftAssign, upload } = require("../controller/util");
+const { verifyToken, checkShiftAssign, upload, hashPassword } = require("../controller/util");
 const { isAuth, isHome, isAdmin } = require("../middlewares/auth");
 const shift = require("../models/shift");
 
 module.exports = (app, db, io) =>{
+
+    app.post('/shifts/update-sheet-code', async(req, res)=>{
+        try{
+            const {code, home_id, date} = req.body;
+            const hash = hashPassword(code);
+
+            const query = await db.query(`
+                update shift set sheet_code = ${hash} where home_id = ${home_id} and date = ${date}; 
+            `)
+            res.status(200).send(query.rows)
+        }
+        catch(error){
+            res.status(400).send(error)
+        }
+    })
 
     app.get('/shifts/get-patterns', async(req, res)=>{
         try{

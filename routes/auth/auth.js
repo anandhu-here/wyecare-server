@@ -2,6 +2,14 @@ const { hashPassword, createToken, comparePassord, verifyToken, createTokenGuest
 const { login, signup, isAdmin, isAuth } = require("../../middlewares/auth");
 
 
+const crypto = require('crypto');
+
+function getRandomHash(length = 32) {
+  const randomBytes = crypto.randomBytes(length);
+  const hash = crypto.createHash('sha256').update(randomBytes).digest('hex');
+  return hash;
+}
+
 module.exports = (app, db) => {
 
     app.get('/', (req, res)=>{
@@ -151,10 +159,16 @@ module.exports = (app, db) => {
     app.post('/login-guest', async(req, res)=>{
         try {
             const {email, password} = req.body;
-            console.log(email, "fuckkk")
+            const randomHash = getRandomHash(32);
+
             const query = await db.query(`
                 select * from home_guest_user where username = $1
             `, [email])
+
+            const codeQuery = await db.query(
+                `update home_guest_user set code = ${randomHash} where username = ${email}`
+            )
+            
             if(query.rows.length === 0){
                 res.status(403).send({message:'Unauthorized'})
             }
@@ -182,6 +196,10 @@ module.exports = (app, db) => {
             const userQuery = await db.query(`
                 select * from users where email = $1
             `, [email])
+
+            const codeQuery = await db.query(`
+                update home_guest_user set code = 
+            `)
             if(userQuery.rows.length > 0){
                 const user = userQuery.rows[0];
                 const token = createToken(user);
