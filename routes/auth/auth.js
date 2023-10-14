@@ -167,6 +167,7 @@ module.exports = (app, db) => {
 
         }
         catch(error){
+            console.log(error, "error")
             res.status(400).send(error)
         }
     })
