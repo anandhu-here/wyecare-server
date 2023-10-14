@@ -10,7 +10,7 @@ module.exports = (app, db, io) =>{
             const hash = hashPassword(code);
 
             const query = await db.query(`
-                update shift set sheet_code = ${hash} where home_id = ${home_id} and date = ${date}; 
+                update home_guest_user set code = ${hash} where home_id = ${home_id} and date = ${date}; 
             `)
             res.status(200).send(query.rows)
         }
@@ -177,7 +177,6 @@ module.exports = (app, db, io) =>{
         const {id} = verifyToken(token)
         try{
             db.Shift.findAll({where:{month:month}, include:[{
-                model:db.Assigned,
                 as:'ass',
                 include:[{
                     model:db.Carer,
@@ -357,14 +356,20 @@ module.exports = (app, db, io) =>{
     } )
     app.post('/shifts/timesheet/create', isAuth, async(req, res)=>{
         try{
-            const {shift_home_id, carer_id, agency_id, date, sign, home_id, pattern, updated} = req.body;
-            const timesheet = await db.query(`
-                insert into timesheet (signature, carer_id, home_id, agency_id, date, shift_home_id, pattern)
-                values ($1, $2, $3, $4, $5, $6, $7)
-            `, [ sign, carer_id, home_id , agency_id, date, shift_home_id, pattern])
-            const update = await db.query(`
-                update shift_home set completed = $1::jsonb[] where id = ${shift_home_id}
-            `, [updated])
+            const {shift_home_id, carer_id, agency_id, date, sign, home_id, pattern, updated, hash} = req.body;
+            const shiftquery = await db.query(`select sh.code from home_guest_user sh where home_id = ${home_id}`);
+            if(shiftquery.rows.length > 0){
+                if(shiftquery.rows[0].code === hash){
+                    const timesheet = await db.query(`
+                    insert into timesheet (signature, carer_id, home_id, agency_id, date, shift_home_id, pattern)
+                    values ($1, $2, $3, $4, $5, $6, $7)
+                    `, [ sign, carer_id, home_id , agency_id, date, shift_home_id, pattern])
+                    const update = await db.query(`
+                        update shift_home set completed = $1::jsonb[] where id = ${shift_home_id}
+                    `, [updated])
+                }
+            }
+            
             res.status(201).send(timesheet.rows[0]);
         }
         catch(e){

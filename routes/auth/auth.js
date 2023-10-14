@@ -156,6 +156,20 @@ module.exports = (app, db) => {
             res.status(400).send({mesage:error.message})
         }
     })
+    app.post('/generate-qr', async(req, res)=>{
+        const {email} = req.body;
+        try{
+            const randomHash = getRandomHash(10);
+            const codeQuery = await db.query(
+                `update home_guest_user set code = ${randomHash} where username = ${email}`
+            )
+            res.status(200).send({message:"Success"})
+
+        }
+        catch(error){
+            res.status(400).send(error)
+        }
+    })
     app.post('/login-guest', async(req, res)=>{
         try {
             const {email, password} = req.body;
