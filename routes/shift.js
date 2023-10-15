@@ -308,8 +308,9 @@ module.exports = (app, db, io) =>{
     })
     app.post('/shifts/completed/cancel', async(req, res)=>{
         try {
-            const { shift_home_id, comp }  = req.body;
+            const { shift_home_id, comp, carer_id }  = req.body;
             const query = await db.query('update shift_home set completed = $1::jsonb[] where id = $2', [comp, shift_home_id]);
+            const ts_del = await db.query(`delete from timesheet where carer_id = $1 and shift_home_id = $2`, [carer_id, shift_home_id]);
             res.status(200).send({message:'Success'});
         } catch (error) {
             res.status(400).send(error);
