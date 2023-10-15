@@ -306,6 +306,15 @@ module.exports = (app, db, io) =>{
             res.status(400).send({error:e.message})
         })
     })
+    app.post('/shifts/completed/cancel', async(req, res)=>{
+        try {
+            const { shift_home_id, comp }  = req.body;
+            const query = await db.query('update shift_home set completed = $1::jsonb[] where id = $2', [comp, shift_home_id]);
+            res.status(200).send({message:'Success'});
+        } catch (error) {
+            res.status(400).send(error);
+        }
+    })
     app.post('/shifts/assign/cancel', async(req, res)=>{
         try{
             const {carer_id, shift_id, arr_name} = req.body;
