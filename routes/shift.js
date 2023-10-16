@@ -463,10 +463,10 @@ module.exports = (app, db, io) =>{
             const homeId = home_id === "null"?null:home_id; // Set to your home_id value or null
 
             const query = `
-            SELECT timesheet.*, home.company, carer.firstname, carer.lastname 
+            SELECT timesheet.*, home.company, carers.firstname, carers.lastname 
             FROM timesheet
             JOIN home ON home.id = timesheet.home_id
-            JOIN carer on carer.id = timeseet.carer_id
+            JOIN carers on carers.id = timeseet.carer_id
             WHERE agency_id = $1
             AND (
                 (timesheet.date >= $2 AND timesheet.date <= $3)
