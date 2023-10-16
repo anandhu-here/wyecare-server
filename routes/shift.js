@@ -466,7 +466,7 @@ module.exports = (app, db, io) =>{
             SELECT timesheet.*, home.company, carers.firstname, carers.lastname 
             FROM timesheet
             JOIN home ON home.id = timesheet.home_id
-            JOIN carers on carers.id = timeseet.carer_id
+            JOIN carers on carers.id = timesheet.carer_id
             WHERE agency_id = $1
             AND (
                 (timesheet.date >= $2 AND timesheet.date <= $3)
