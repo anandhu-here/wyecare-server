@@ -357,7 +357,7 @@ module.exports = (app, db) => {
     app.get('/search/homes', async(req, res)=>{
         try {
             const {home} = req.query;
-            const query = await db.query(`select * from home where company ilike '%${home}%'`);
+            const query = await db.query(`select * from home where company ilike '${home}%'`);
             res.status(200).send(query.rows);
         } catch (error) {
             console.log(error, "errrrrr")
@@ -367,7 +367,7 @@ module.exports = (app, db) => {
     app.get('/search/agents', async(req, res)=>{
         try {
             const {agency} = req.query;
-            const query = await db.query(`select * from agency where company ilike '%${agency}%'`);
+            const query = await db.query(`select * from agency where company ilike '${agency}%'`);
             res.status(200).send(query.rows);
         } catch (error) {
             console.log(error, "errrrrr")
