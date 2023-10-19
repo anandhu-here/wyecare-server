@@ -354,6 +354,25 @@ module.exports = (app, db) => {
         }
         
     })
+    app.get('/search/homes', async(req, res)=>{
+        try {
+            const {home} = req.query;
+            const query = await db.query(`select * from home where company = %${home}%`);
+            res.status(200).send(query.rows);
+        } catch (error) {
+            res.status(400).send({error})
+        }
+    })
+    app.get('/search/agents', async(req, res)=>{
+        try {
+            const {agency} = req.query;
+            const query = await db.query(`select * from agency where company = %${agency}`);
+            res.status(200).send(query.rows);
+        } catch (error) {
+            res.status(400).send({error})
+        }
+    })
+    
     app.get('/get/homes', async(req, res)=>{
         try{
             const {agency_id} = req.query;
