@@ -375,7 +375,7 @@ module.exports = (app, db) => {
         
     })
     app.post('/home/accept-request', async (req, res)=>{
-        const {req_id, ha_id} = req.body;
+        const {home_id, agency_id, req_id} = req.body;
         // db.Carer.findOne({where:{id:1}}).then(u=>u.destroy()).catch(e=>console.log(e))
         const date = new Date();
         try{
@@ -383,8 +383,8 @@ module.exports = (app, db) => {
                 delete from home_agency_request where id = $1;
             `, [req_id])
             const query2 = await db.query(`
-                update home_agency set status = $1 where id = $2;
-            `, [ha_id, 1])
+                update home_agency set status = $3 where agency_id = $1 and home_id = $2;
+            `, [agency_id, home_id, 1])
             res.status(200).send(query.rows[0]);
         }
         catch(e){
@@ -417,7 +417,7 @@ module.exports = (app, db) => {
         try{
             const {agency_id} = req.query;
             const agencyQuery = await db.query(`
-                select home.*, users.email, home_agency.id as ha_id from home 
+                select home.*, users.email, home_agency.status from home 
                 inner join home_agency on home.id = home_agency.home_id 
                 inner join users on users.id = home.user_id
                 where home_agency.agency_id = $1
@@ -446,7 +446,7 @@ module.exports = (app, db) => {
         try {
             const {home_id} = req.query;
             const query = await db.query(`
-                select agency.*, users.email, home_agency.id as ha_id from agency 
+                select agency.*, users.email, home_agency.status from agency 
                 inner join home_agency on agency.id = home_agency.agency_id 
                 inner join users on agency.user_id = users.id
                 where home_agency.home_id = $1
