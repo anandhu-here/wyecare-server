@@ -446,7 +446,7 @@ module.exports = (app, db) => {
         try {
             const {home_id} = req.query;
             const query = await db.query(`
-                select agency.*, users.email from agency 
+                select agency.*, users.email, home_agency.id as ha_id from agency 
                 inner join home_agency on agency.id = home_agency.agency_id 
                 inner join users on agency.user_id = users.id
                 where home_agency.home_id = $1
