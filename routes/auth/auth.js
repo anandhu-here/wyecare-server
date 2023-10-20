@@ -354,10 +354,25 @@ module.exports = (app, db) => {
         }
         
     })
+    app.post('/home/join-request', async (req, res)=>{
+        const {home_id, agency_id} = req.body;
+        // db.Carer.findOne({where:{id:1}}).then(u=>u.destroy()).catch(e=>console.log(e))
+        const date = new Date();
+        try{
+            const query = await db.query(`
+                insert into home_agency_request (home_id, agency_id, createdAt) values ($1, $2, $3)
+            `, [home_id, agency_id, date])
+            res.status(200).send(query.rows[0])
+        }
+        catch(e){
+            res.status(400).send(e)
+        }
+        
+    })
     app.get('/search/homes', async(req, res)=>{
         try {
             const {home} = req.query;
-            const query = await db.query(`select * from home where company ilike '${home}%'`);
+            const query = await db.query(`select home.*, users.email from home where company ilike '${home}%' join users on users.id === home.user_id`);
             res.status(200).send(query.rows);
         } catch (error) {
             console.log(error, "errrrrr")
