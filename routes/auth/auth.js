@@ -380,8 +380,8 @@ module.exports = (app, db) => {
         const date = new Date();
         try{
             const query = await db.query(`
-                delete from home_agency_request where agency_id = ${agency_id} and home_id = ${home_id};
-            `, [req_id])
+                delete from home_agency_request where agency_id = $1 and home_id = $2;
+            `, [agency_id, home_id])
             const query2 = await db.query(`
                 update home_agency set status = $3 where agency_id = $1 and home_id = $2;
             `, [agency_id, home_id, 1])
