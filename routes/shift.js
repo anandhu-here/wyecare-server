@@ -123,10 +123,36 @@ module.exports = (app, db, io) =>{
         const { month, id } = req.query;
         try{
             const query = await db.query(`
-                select shift_home.*, shift.*, agency.company from shift_home
-                join shift on shift.id = shift_home.shift_id
-                join agency on agency.id = shift_home.agency_id
-                where shift.home_id = ${id}
+            SELECT
+            sh.*,
+            s.*,
+            a.company,
+            cn.new_jsonb_array_column AS assigned_carer_names
+            FROM
+                shift_home sh
+            JOIN
+                shift s ON s.id = sh.shift_id
+            JOIN
+                agency a ON a.id = sh.agency_id
+            LEFT JOIN (
+                SELECT
+                    shift_home.id AS shift_home_id,
+                    assigned AS assigned,
+                    jsonb_agg(carers.firstname || ' ' || carers.lastname) AS new_jsonb_array_column
+                FROM
+                    shift_home
+                LEFT JOIN
+                    unnest(assigned) AS carer_id
+                    ON true
+                LEFT JOIN
+                    carers
+                    ON carers.id = carer_id::text::integer
+                GROUP BY
+                    shift_home.id, assigned
+            ) cn ON cn.shift_home_id = sh.id
+            WHERE
+                s.home_id = ${id};
+        
             `)
 
             res.status(200).send(query.rows);
