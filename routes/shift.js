@@ -123,8 +123,9 @@ module.exports = (app, db, io) =>{
         const { month, id } = req.query;
         try{
             const query = await db.query(`
-                select shift_home.*, shift.* from shift_home
+                select shift_home.*, shift.*, agency.company from shift_home
                 join shift on shift.id = shift_home.shift_id
+                join agency on agency.id = shift_home.agency_id
                 where shift.home_id = ${id}
             `)
 
