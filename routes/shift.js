@@ -151,9 +151,9 @@ module.exports = (app, db, io) =>{
                     shift_home.id, assigned
             ) cn ON cn.shift_home_id = sh.id
             WHERE
-                s.home_id = ${id};
+                s.home_id = ${id}
 
-            ORDER BY s.date
+            ORDER BY s.date;
         
             `)
 
