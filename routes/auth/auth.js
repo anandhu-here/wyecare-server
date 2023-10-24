@@ -307,11 +307,10 @@ module.exports = (app, db) => {
     app.get('/get/carers', async(req, res)=>{
         try{
             const {agency_id} = req.query;
-            console.log(agency_id, "ppp888")
             const carerQuery = await db.query(`
                 select carers.*, agency.company from carers 
                 join agency on agency.id = carers.agency_id
-                where agency_id = $1 
+                where agency_id = $1 and carers.status = 1;
             `, [ agency_id ])
             res.status(200).send(carerQuery.rows)
         }
