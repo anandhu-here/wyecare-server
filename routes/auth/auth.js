@@ -207,6 +207,7 @@ module.exports = (app, db) => {
             const query = await db.query(`update table carers set status = 1 where id = ${carer_id} and agency_id = ${agency_id}`)
             res.status(201).send({message:'Success'})
         } catch (error) {
+            console.log(error, "eee")
             res.status(400).send(error)
         }
     })
