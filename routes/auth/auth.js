@@ -78,14 +78,14 @@ module.exports = (app, db) => {
 
         else if(user.role === 2){
             const {firstname, lastname, address, city, postcode, phone, dob, user_id, agency_id, staff} = req.body;
-            console.log(firstname, lastname, address, city, postcode, phone, dob, user_id, agency_id, staff, "fuck")
+            console.log(req.body, "pppppppp")
             const carer_query = `
-                INSERT INTO carers (firstname, lastname, address, city, postcode, phone, dob, user_id, agency_id, role)
-                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+                INSERT INTO carers (firstname, lastname, address, city, postcode, phone, dob, user_id, agency_id, role, status)
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
                 RETURNING *
             `
 
-            const carer_results = await db.query(carer_query, [firstname, lastname, address, city, postcode, phone, dob, user.id, agency_id, staff]);
+            const carer_results = await db.query(carer_query, [firstname, lastname, address, city, postcode, phone, dob, user.id, agency_id, staff, 0]);
             res.status(201).send({
                 token,
                 user:{
