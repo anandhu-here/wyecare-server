@@ -201,6 +201,15 @@ module.exports = (app, db) => {
             res.status(400).send(error)
         }
     })
+    app.post('/approve-carer', async(req, res)=>{
+        try {
+            const {carer_id, agency_id} = req.body;
+            const query = await db.query(`update table carers set status = 1 where id = ${carer_id} and agency_id = ${agency_id}`)
+            res.status(201).send({message:'Success'})
+        } catch (error) {
+            res.status(400).send(error)
+        }
+    })
     app.post('/login', login, async(req, res)=>{
         const { email, password } = req.body;
         try{
