@@ -204,7 +204,7 @@ module.exports = (app, db) => {
     app.post('/approve-carer', async(req, res)=>{
         try {
             const {carer_id, agency_id} = req.body;
-            const query = await db.query(`update table carers set status = 1 where id = ${carer_id} and agency_id = ${agency_id}`)
+            const query = await db.query(`update carers set status = 1 where id = ${carer_id} and agency_id = ${agency_id}`)
             res.status(201).send({message:'Success'})
         } catch (error) {
             console.log(error, "eee")
