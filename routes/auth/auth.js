@@ -310,7 +310,7 @@ module.exports = (app, db) => {
             const carerQuery = await db.query(`
                 select carers.*, agency.company from carers 
                 join agency on agency.id = carers.agency_id
-                where agency_id = $1 and carers.status = 1;
+                where agency_id = $1;
             `, [ agency_id ])
             res.status(200).send(carerQuery.rows)
         }
