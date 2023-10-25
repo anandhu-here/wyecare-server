@@ -1,10 +1,11 @@
 const express = require('express');
 const router = require('./routes/index');
-const db = require('./db/db.js');
+const {pool} = require('./db/db.js');
 const bodyParser = require('body-parser');
 const socketIo = require('socket.io');
 
 const cors = require('cors');
+
 
 
 
@@ -23,7 +24,7 @@ app.use(bodyParser.json());
 const server = app.listen(8080, (req, res)=>{
     console.log('App running')
 })
-router(app, db)
+router(app, pool)
 
 
 

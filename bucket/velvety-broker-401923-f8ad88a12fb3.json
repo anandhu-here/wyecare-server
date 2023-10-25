@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "velvety-broker-401923",
+  "private_key_id": "f8ad88a12fb30f6b66bd60cc613abf78ffe1e924",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC9+u09Uc/rHAom\nm45oFhoJBq/M7mqO4j9U+9l6S1ScofhHnFQYekkvnILY1LKWER0cJx/Dd7pYqEwp\naWoZATxOu1PQc4qvx8jpbniDtOgJYXD0kUL2VozWlm3d2JHanXyFj9Y8ZqURQQ/I\nKBy/uweGxGolI8dSkxDCivIJIQxgmf5qFXg1wZHY1cuQPDR8X1zZdVTcM35nPFZX\nYrYEnK4YLoiqA8qGmT4kOiu776T46CRGWfqeUs82BSMYHHDx6uuSFFsvsOyBLBhU\n+LYw6tF1tquRLeVXXnNB7zknxaINaIHBswLYLJiH81mLaXrQq6k+gVRw2BJxh7zc\ndRJFOrYZAgMBAAECggEAF+Oiy3ArNgRLnnk3Gg2VbochuiJM0fTPQ+97dG5ekGep\noc+dn4pZA5yps3xjjI1QXMbqrpiynQ1krlxsFALcw4W4z2CIEvyLXhcfHmi0OOHA\n43AUvIc7pIw7+oaOKLBfBSiGJwg9P4Mv6dppaw6orqCqPEtYeCC4Hc59CvrV5Jug\nsMYpKqD2j6AsSCtPXdQUOrpDU6tdppVY5pZ4smG7AOZoy48v9uHG/Wnp5LnGRSAh\nGzPqtPr6qC2t/JcCzK3VajK1OeHTmbr0n+CjyVf0rTEqK8blq3KrP/q04x7/nLBC\nc0P8LkNiMoyCGfeAwyoxDNCTJxtFAXWvPCMeDjuQ9QKBgQD8uZ8Un/PkPoXDgrUb\nSNkQ3DiM4pbsooyVT7XIcGvnu4gc3Z2tEDrFPd9gewkd3B71xMFh25wLxymo76D0\n6s8YYG/HVm/TU8sNN/PHFN1Ek+AwT1PTSLPeF9F90IM5f4wdrOIyZSdHVry4b/xM\ncJgHLSNy8eOuUE/h93cLyqZJRwKBgQDAcSiDTukx8vJwG3UIk98zZHLM0rqRRdn8\nfSYRzeT/UGXhERUVWjufSgrrGwMzPgMb81o4/i43a/0tPB1w6pponJfT+lYFR2TC\nlWp2VSA4ImzaGRfvwG+pzVQpEJ98KlXRCcY9ErRJlWeQ+FYT6z7mGST45au6fyKG\nAGk4yry1nwKBgDNNmzWcou4aoxzlU86OI0KA8hnnhavT86X74HMoHz+TmjYB5xhS\nyxtvTAFR+K/PF5ncr0UmR688ZwCcZJhTcmcIbKiSq3DC+d1dFme7nI9nVYN5FxM1\nFw5m12grA/iQI+mCRwjj7+1Tdkwar6T01mfeieuznvyr4QuGKOyD3u3RAoGAMAlP\nCo/dB9nUCIXiDdUThvmQ6m3DolWkVzFKGnGhstV3yNmBwMW4UkeiOBOTFexpzEVP\nhSB1muH63Zq+4pu9FVXZVFGNvV2X2jZ/z6/qDfkR4NMYtYD8no8hbeq3VMAgkcB1\n2nLby+5eXsKOggRbvAYUw4hY+IGZtYdOvJ1mw5MCgYBNCAp5hcH5NZ/7B533a4sq\nMb3lH8DZ80jYM1Ubdhy3KN0EQZTCnfony/HQd5pC6Bx0oH/jjAkkVbDc6hTt0SMg\n3OeRozZbvHwwasqvvg6ikxXuU5FTi9CzSNHvkQqVEcrK4U6e4zACtR3siSz42sbE\nUahMEiqNp2TjO2SjcRWQ0Q==\n-----END PRIVATE KEY-----\n",
+  "client_email": "wyecare@velvety-broker-401923.iam.gserviceaccount.com",
+  "client_id": "102449322195975410692",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/wyecare%40velvety-broker-401923.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

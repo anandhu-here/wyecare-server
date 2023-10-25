@@ -8,14 +8,12 @@ module.exports = (app, db) =>{
             if(file){
 
                 console.log(file, "file")
-                const carer = await db.Carer.findOne({where:{id:id}})
-                const doc = await db.Doc.create({
-                    name:name,
-                    file:`/public/uploads/${file.originalname}`
-                })
-                carer.addDoc(doc);
-                res.status(200).send(doc)
+                
+                res.status(200).send({message:'suuu '})
 
+            }
+            else{
+                console.log("no file ")
             }
             
         } catch(e){
