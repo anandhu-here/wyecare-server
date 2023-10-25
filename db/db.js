@@ -1,12 +1,12 @@
 const { Pool } = require('pg');
-const { Storage } = require('@google-cloud/storage')
+// const { Storage } = require('@google-cloud/storage')
 
-// Initialize storage
-const storage = new Storage({
-  keyFilename: `./bucket/velvety-broker-401923-f8ad88a12fb3.json`,
-})
-const bucketName = 'wyecare-bucket'
-const bucket = storage.bucket(bucketName)
+// // Initialize storage
+// const storage = new Storage({
+//   keyFilename: `./bucket/velvety-broker-401923-f8ad88a12fb3.json`,
+// })
+// const bucketName = 'wyecare-bucket'
+// const bucket = storage.bucket(bucketName)
 
 
 const pool = new Pool({
@@ -17,4 +17,4 @@ const pool = new Pool({
     port:5432
 })
 
-module.exports = {pool, bucket};
+module.exports = {pool};
