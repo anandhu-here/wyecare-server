@@ -477,84 +477,18 @@ module.exports = (app, db) => {
             res.status(400).send({error:e.message})
         }
     })
-    app.get('/user', (req, res)=>{
-        const { email } = req.query;
-        // db.User.findOne({where:{email}}).then(user)
-        db.User.findOne( { where:{ email }} ).then(user=>{
-            if(!user){
-                res.status(404).json({error:'User not Found'})
-            }
-            else{
-                if(user.role === "HOME"){
-                    db.User.findOne( { where:{ email }, include:[{
-                        model:db.Home,
-                        as:'home'
-                    }]} ).then(user=>{
-                        res.status(200).send({user})
-                    }).catch(e=>{
-                        res.status(400).send({error:e.message})
-                    })
-                }
-                else if(user.role === "CARER"){
-                    db.User.findOne( { where:{ email }, include:[{
-                        model:db.Carer,
-                        as:'carer'
-                    }]} ).then(user=>{
-                        res.status(200).send({usr})
-                    }).catch(e=>{
-                        res.status(400).send({error:e.message})
-                    })
-                }
-            }
-            
-        }).catch(e=>{
-            res.status(400).send({error:e.message})
-        })
-    })
-    app.post('/update/profile', async (req, res)=>{
+    app.post('/upload/dp', async(req, res)=>{
+        const {id, dp} = req.body;
         try{
-            const { firstName, lastName, phone, postcode, adress1, city, dob, company } = req.body;
-            const token = req.headers.authorization
-            try{
-                const {id, email, role} = verifyToken(token);
-                if(role === "HOME"){
-                    console.log(email, "email")
-                    db.Home.findOne({where:{userId:id}}).then(home=>{
-                        home.update({
-                            ...req.body
-                        })
-                        res.status(201).send({message:"Updated"})
-                    }).catch(e=>{
-                        res.status(400).send({error:e.messsage})
-                    })   
-                }
-                else if(role === "CARER"){
-                    db.Carer.findOne({where:{userId:id}}).then(carer=>{
-                        carer.update({
-                            ...req.body
-                        })
-                        res.status(201).send({message:"Updated"})
-                    }).catch(e=>{
-                        res.status(400).send({error:e.messsage})
-                    })   
-                }
-            }
-            catch(e){
-                res.status(400).send({error:'Invalid Token'})
-            }
-            
-        }
-        catch(e){
-            res.status(400).send({error:e.messsage})
+            const agencyQuery = await db.query(`
+                update table carers set profile_picture = $1 where id = $2;
+            `, [dp, id])
+            res.status(200).json(agencyQuery.rows[0])
+        } catch(e){
+            console.log(e, "suck")
+            res.status(400).send({error:e.message})
         }
     })
-    app.post('/docname/add', (req, res)=>{
-        const { names } = req.body;
-        db.DocNames.bulkCreate(names).then(res=>{
-            console.log(res)
-        }).catch(e=>{
-
-        })
-    })
+    
     
 }
