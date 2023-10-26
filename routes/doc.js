@@ -1,8 +1,7 @@
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
+
 
 module.exports = (app, db) =>{
-    app.post('/doc/upload', upload.single('file'), async(req, res, next)=>{
+    app.post('/doc/upload', async(req, res, next)=>{
         const {id, location, name} = req.body
         try{
             const query = await db.query(`
