@@ -1,4 +1,7 @@
 const { Pool } = require('pg');
+const aws = require('aws-sdk');
+const { S3 } = require('aws-sdk');
+
 // const { Storage } = require('@google-cloud/storage')
 
 // // Initialize storage
@@ -8,6 +11,12 @@ const { Pool } = require('pg');
 // const bucketName = 'wyecare-bucket'
 // const bucket = storage.bucket(bucketName)
 
+const s3 = new aws.S3({
+    accessKeyId: 'AKIATFR52UK4KHZVJ67B',
+    secretAccessKey: 'vl75WGYhql+JA+JEyuk9jOIOxzjtbhW1FFk8qAAJ',
+    region: 'eu-west-2', // Replace with your AWS region
+  });
+  
 
 const pool = new Pool({
     host:'127.0.0.1',
@@ -17,4 +26,4 @@ const pool = new Pool({
     port:5432
 })
 
-module.exports = {pool};
+module.exports = {pool, s3};
