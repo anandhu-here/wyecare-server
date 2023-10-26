@@ -7,7 +7,7 @@ module.exports = (app, db) =>{
             const file = req.file;
             if(file){
 
-                console.log(file, "file")
+                console.log(file.buffer, "file")
                 
                 res.status(200).send({message:'suuu '})
 

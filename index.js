@@ -8,6 +8,8 @@ const cors = require('cors');
 
 
 
+const bucketName = 'wyecare-bucket'
+const bucket = storage.bucket(bucketName)
 
 
 
