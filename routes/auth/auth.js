@@ -18,7 +18,7 @@ module.exports = (app, db) => {
 
     app.post('/create-guest-user', async(req, res)=>{
         try {
-            const {username, password, home_id} = req.body;
+            const {username, password, home_id, role} = req.body;
             const userExist = await db.query(`
             select home.id from home 
             join users on users.id = home.user_id
@@ -30,11 +30,11 @@ module.exports = (app, db) => {
             else{
                 const hash = hashPassword(password);
                 const query = `
-                    INSERT into home_guest_user (username, password, home_id)
-                        values ($1, $2, $3)
-                        returning id, username, home_id
+                    INSERT into home_guest_user (username, password, home_id, role)
+                        values ($1, $2, $3, $4)
+                        returning id, username, home_id, role
                 `
-                const result = await db.query(query, [username, hash, userExist.rows[0].id]);
+                const result = await db.query(query, [username, hash, userExist.rows[0].id, role]);
                 res.status(200).send(result.rows[0])
             }
             
