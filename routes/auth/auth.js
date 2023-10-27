@@ -329,6 +329,92 @@ module.exports = (app, db) => {
         }
     })
 
+    app.post('/update/profile', async(req, res)=>{
+        const {updates, id, table} = req.body;
+        try {
+            
+            const condition = `id = ${id}`;
+
+            let query = `UPDATE ${table} SET `;
+
+            for (const column in Object.keys(updates)) {
+                query += `${column} = '${updates[column]}', `;
+            }
+
+            query = query.slice(0, -2); // Remove the trailing comma and space
+            query += ` WHERE ${condition};`;
+
+            console.log(query, "query")
+
+            const update = await db.query(query);
+            res.status(200).send(update.rows)
+
+        } catch (error) {
+            console.log(error)
+            res.status(500).send({error:e.message})
+        }
+    })
+
+    app.post('/remove/carer', async(req, res)=>{
+        const {carer_id, token} = req.body;
+        try {
+
+            const {id} = verifyToken(token);
+
+            const agency_query = await db.query(`select id from agency where user_id = ${id}`)
+
+            console.log(agency_query, "--");
+            
+            
+            const get = await db.query(`select agency_id from carers where id = ${carer_id}`);
+            const agency_id = get.rows[0].agency_id;
+            if(agency_id === agency_query.rows[0].id){
+                const query = await db.query(`update carers set agency_id = NULL where carer_id = ${carer_id}`);
+                res.status(200).send(update.rows)
+            }
+
+            else{
+
+                res.status(403).send({message:"Agency not found"})
+            }
+            
+
+        } catch (error) {
+            console.log(error)
+            res.status(500).send({error:e.message})
+        }
+    }) 
+    app.post('/remove/home', async(req, res)=>{
+        const {home_id, token} = req.body;
+        try {
+
+            const {id} = verifyToken(token);
+
+            const agency_query = await db.query(`select id from agency where user_id = ${id}`)
+
+            console.log(agency_query, "--");
+            
+            
+            const get = await db.query(`select active_agency from home where id = ${home_id}`);
+            const agency_id = get.rows[0].active_agency;
+            if(agency_id === agency_query.rows[0].id){
+                const query = await db.query(`delete from home_agency where agency_id = ${agency_id} and home_id = ${home_id}`);
+                const query2 = await db.query(`update home set active_agency = NULL where id = ${home_id}`);
+                res.status(200).send({message:"OK"})
+            }
+
+            else{
+
+                res.status(403).send({message:"Agency not found"})
+            }
+            
+
+        } catch (error) {
+            console.log(error)
+            res.status(500).send({error:e.message})
+        }
+    }) 
+
     
     app.get('/get/allcarers', async(req, res)=>{
         try{
