@@ -277,8 +277,8 @@ module.exports = (app, db, io) =>{
                 const { shift_home_id, carer_ids, completed} = shift;
                 const set_query = await db.query(`
                     update shift_home
-                    set assigned = assigned || $1::jsonb[],
-                        completed = completed || $2::jsonb[]
+                    set assigned = $1::jsonb[],
+                        completed = $2::jsonb[]
                     where id = ${shift_home_id}
                 `, [carer_ids, completed])
             }
