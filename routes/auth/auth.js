@@ -369,7 +369,7 @@ module.exports = (app, db) => {
             const get = await db.query(`select agency_id from carers where id = ${carer_id}`);
             const agency_id = get.rows[0].agency_id;
             if(agency_id === agency_query.rows[0].id){
-                const query = await db.query(`update carers set agency_id = NULL where carer_id = ${carer_id}`);
+                const query = await db.query(`update carers set agency_id = NULL where id = ${carer_id}`);
                 res.status(200).send(update.rows)
             }
 
@@ -381,7 +381,7 @@ module.exports = (app, db) => {
 
         } catch (error) {
             console.log(error)
-            res.status(500).send({error:e.message})
+            res.status(500).send(error)
         }
     }) 
     app.post('/remove/home', async(req, res)=>{
@@ -411,7 +411,7 @@ module.exports = (app, db) => {
 
         } catch (error) {
             console.log(error)
-            res.status(500).send({error:e.message})
+            res.status(500).send(error)
         }
     }) 
 
