@@ -1,6 +1,6 @@
 const { verify } = require('jsonwebtoken');
 const { verifyToken } = require('../controller/util');
-const db = require('../db/db');
+const {pool} = require('../db/db');
 
 const login = (req, res, next) =>{
     const { email, password } = req.body;
@@ -15,7 +15,7 @@ const login = (req, res, next) =>{
 
 const signup = async ( req, res, next ) =>{
     const { email, password, role } = req.body;
-    const user = await db.query(`
+    const user = await pool.query(`
         SELECT * from users WHERE email = $1
     `, [email])
     if(user.rows.length>0){
