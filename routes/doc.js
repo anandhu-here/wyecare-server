@@ -5,7 +5,7 @@ module.exports = (app, db) =>{
         const {id, location, name} = req.body
         try{
             const query = await db.query(`
-                insert into documents (name, location, carer_id) values ($1, $2, $3);
+                insert into documents (name, location, carer_id) values ($1, $2, $3) returning *;
             `, [name, location, id])
             res.status(201).send(query.rows[0]);
         } catch(e){
