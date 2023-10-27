@@ -370,7 +370,7 @@ module.exports = (app, db) => {
             const agency_id = get.rows[0].agency_id;
             if(agency_id === agency_query.rows[0].id){
                 const query = await db.query(`update carers set agency_id = NULL where id = ${carer_id}`);
-                res.status(200).send(update.rows)
+                res.status(200).send(query.rows[0])
             }
 
             else{
