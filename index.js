@@ -3,7 +3,7 @@ const router = require('./routes/index');
 const {pool} = require('./db/db.js');
 const bodyParser = require('body-parser');
 const socketIo = require('socket.io');
-
+const path = require('path');
 const cors = require('cors');
 
 
