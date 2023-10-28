@@ -181,7 +181,7 @@ module.exports = (app, db, io) =>{
     }
     )
     
-    app.get('/shifts/list/agency', isAuth, async(req, res)=>{
+    app.get('/shifts/list/agency', async(req, res)=>{
         console.log("mairuu")
         const token = req.headers.authorization;
         const { month, id } = req.query;
