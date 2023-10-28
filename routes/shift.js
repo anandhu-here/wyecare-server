@@ -259,7 +259,7 @@ module.exports = (app, db, io) =>{
             const {agency_id, date} = req.query;
             console.log(agency_id, "ppp888", date, "ppppp")
             const carerQuery = await db.query(`
-                select * from carers where (agency_id = ${agency_id} or ${agency_id} = any(agencies)) and carers.status = 1;
+                select * from carers where (agency_id = ${agency_id} or '${agency_id}' = any(agencies)) and carers.status = 1;
 
             `, [  ])
             res.status(200).send(carerQuery.rows)
