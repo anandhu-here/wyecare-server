@@ -369,7 +369,7 @@ module.exports = (app, db) => {
             const get = await db.query(`select agency_id from carers where id = ${carer_id}`);
             const agency_id = get.rows[0].agency_id;
             if(agency_id === agency_query.rows[0].id){
-                const query = await db.query(`update carers set agency_id = NULL, agencies = agencies || $1::jsonb[] where id = ${carer_id}`, [agency_id]);
+                const query = await db.query(`update carers set agency_id = NULL, agencies = agencies || ARRAY['${agency_id}']::jsonb[] where id = ${carer_id}`);
                 res.status(200).send(query.rows[0])
             }
 
