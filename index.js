@@ -9,11 +9,11 @@ const cors = require('cors');
 
 
 const app = express();
-app.use(express.static(path.join(__dirname, '../react-frontend/build')));
+app.use(express.static(path.join(__dirname, '../wyecare-web/build')));
 
 // Define a catch-all route to serve your React app's HTML file
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../react-frontend/build', 'index.html'));
+  res.sendFile(path.join(__dirname, '../wyecare-web/build', 'index.html'));
 });
 
 app.use(cors({
