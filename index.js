@@ -9,15 +9,15 @@ const cors = require('cors');
 
 
 const app = express();
-app.use(express.static(path.join(__dirname, '../wyecare-web/build')));
+app.use(express.static(path.join(__dirname, 'build')));
 
 // Define a catch-all route to serve your React app's HTML file
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../wyecare-web/build', 'index.html'));
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 app.use(cors({
-    origin:['https://rad-belekoy-8a2600.netlify.app']
+    origin:"*"
 }))
 app.use('/public/uploads',express.static(__dirname + '/public/uploads/'))
 
