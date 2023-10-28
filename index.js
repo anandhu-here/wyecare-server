@@ -17,7 +17,7 @@ app.get('*', (req, res) => {
 });
 
 app.use(cors({
-    origin:'*'
+    origin:['https://rad-belekoy-8a2600.netlify.app']
 }))
 app.use('/public/uploads',express.static(__dirname + '/public/uploads/'))
 
