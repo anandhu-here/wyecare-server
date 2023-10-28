@@ -1,4 +1,4 @@
-POST http://localhost:8080/shifts/assign
+POST http://localhost:8080/test/test/publish-shift
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsImVtYWlsIjoidHVkb3JAZ21haWwuY29tIiwicm9sZSI6MSwiaWF0IjoxNjkzOTUzOTk5LCJleHAiOjE2OTQwNDAzOTl9.HBnUJa_8mwrs4Rsw6q2emXn2UbXih7shT9XDpJUQl-E
 
