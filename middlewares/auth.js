@@ -35,7 +35,6 @@ const isAuth = async (req, res, next) =>{
     try{
         const t = req.headers.authorization;
         const token = t.split(" ").length>1?t.split(" ")[1]:t.split(" ")[0];
-        console.log(token, "hello")
         const {id, email} = verifyToken(token);
         next();
     }

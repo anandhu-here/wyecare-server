@@ -58,6 +58,8 @@ module.exports = (app, db, io) =>{
                 shiftId = insertShiftQuery.rows[0].id;
             }
 
+            console.log(shiftId, "shift--")
+
 
             for (const pattern of patterns) {
                 const queryShiftHome = await db.query(`
@@ -75,7 +77,7 @@ module.exports = (app, db, io) =>{
             res.status(201).send({message:'Success'})
         }
         catch(e){
-            console.log(e)
+            console.log(e, "error")
             res.status(400).send({error:e.message})
         }
         
