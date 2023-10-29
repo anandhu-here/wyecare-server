@@ -567,7 +567,7 @@ module.exports = (app, db) => {
         try{
             const {agency_id} = req.query;
             const agencyQuery = await db.query(`
-                select * from agency where id = ${agency_id}
+                select agency.*, users.email from agency join users on users.id = agency.user_id where id = ${agency_id}
             `)
             res.status(200).json(agencyQuery.rows)
         } catch(e){
