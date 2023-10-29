@@ -580,7 +580,7 @@ module.exports = (app, db) => {
         const {id, dp} = req.body;
         try{
             const agencyQuery = await db.query(`
-                update table carers set profile_picture = $1 where id = $2;
+                update carers set profile_picture = $1 where id = $2;
             `, [dp, id])
             res.status(200).json(agencyQuery.rows[0])
         } catch(e){
