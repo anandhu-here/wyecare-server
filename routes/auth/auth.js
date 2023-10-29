@@ -601,12 +601,23 @@ module.exports = (app, db) => {
             }
 
             query = query.slice(0, -2); // Remove the trailing comma and space
-            query += ` WHERE ${condition};`;
+            query += ` WHERE ${condition} returning *;`;
 
             console.log(query, "query")
 
             const update = await db.query(query);
             res.status(200).send(update.rows)
+        } catch(e){
+            console.log(e, "suck")
+            res.status(400).send({error:e.message})
+        }
+    })
+    app.post('/get/availabilty', async(req, res)=>{
+        const {carer_id} = req.query;
+        try{
+            
+            const update = await db.query(`select * from availability where carer_id = ${carer_id}`);
+            res.status(200).send(update.rows[0])
         } catch(e){
             console.log(e, "suck")
             res.status(400).send({error:e.message})
