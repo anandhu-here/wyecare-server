@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.94cc6449.css",
+    "main.css": "/static/css/main.710cb964.css",
     "main.js": "/static/js/main.41f2a041.js",
     "static/js/738.87b8ba98.chunk.js": "/static/js/738.87b8ba98.chunk.js",
     "static/js/466.1ae1eaaf.chunk.js": "/static/js/466.1ae1eaaf.chunk.js",
@@ -16,7 +16,7 @@
     "static/media/pic.jpeg": "/static/media/pic.f54ae9d2275afcd3391a.jpeg",
     "static/media/wyelogo.png": "/static/media/wyelogo.288745d2e149e998926c.png",
     "index.html": "/index.html",
-    "main.94cc6449.css.map": "/static/css/main.94cc6449.css.map",
+    "main.710cb964.css.map": "/static/css/main.710cb964.css.map",
     "main.41f2a041.js.map": "/static/js/main.41f2a041.js.map",
     "738.87b8ba98.chunk.js.map": "/static/js/738.87b8ba98.chunk.js.map",
     "466.1ae1eaaf.chunk.js.map": "/static/js/466.1ae1eaaf.chunk.js.map",
@@ -31,7 +31,7 @@
     "496.5af1ddd5.chunk.js.map": "/static/js/496.5af1ddd5.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.94cc6449.css",
+    "static/css/main.710cb964.css",
     "static/js/main.41f2a041.js"
   ]
 }
