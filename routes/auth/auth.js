@@ -612,12 +612,13 @@ module.exports = (app, db) => {
             res.status(400).send({error:e.message})
         }
     })
-    app.post('/get/availabilty', async(req, res)=>{
+    app.get('/get/availabilty', async(req, res)=>{
         const {carer_id} = req.query;
         try{
             
             const update = await db.query(`select * from availability where carer_id = ${carer_id}`);
             res.status(200).send(update.rows[0])
+
         } catch(e){
             console.log(e, "suck")
             res.status(400).send({error:e.message})
