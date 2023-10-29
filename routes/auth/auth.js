@@ -563,7 +563,7 @@ module.exports = (app, db) => {
             res.status(400).send({error:e.message})
         }
     })
-    app.get('/get/myagent', async(req, res)=>{
+    app.get('/get/myagent/carer', async(req, res)=>{
         try{
             const {agency_id} = req.query;
             const agencyQuery = await db.query(`
@@ -575,6 +575,7 @@ module.exports = (app, db) => {
             res.status(400).send({error:e.message})
         }
     })
+
     app.post('/upload/dp', async(req, res)=>{
         const {id, dp} = req.body;
         try{
