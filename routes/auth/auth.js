@@ -588,6 +588,30 @@ module.exports = (app, db) => {
             res.status(400).send({error:e.message})
         }
     })
+
+    app.post('/send/availabilty', async(req, res)=>{
+        const {carer_id, list} = req.body;
+        try{
+            const condition = `carer_id = ${carer_id}`;
+
+            let query = `UPDATE availability SET `;
+
+            for (const day in list) {
+                query += `${day} = 'TRUE', `;
+            }
+
+            query = query.slice(0, -2); // Remove the trailing comma and space
+            query += ` WHERE ${condition};`;
+
+            console.log(query, "query")
+
+            const update = await db.query(query);
+            res.status(200).send(update.rows)
+        } catch(e){
+            console.log(e, "suck")
+            res.status(400).send({error:e.message})
+        }
+    })
     
     
 }
