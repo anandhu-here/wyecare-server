@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.7dc3a324.css",
-    "main.js": "/static/js/main.41f2a041.js",
+    "main.css": "/static/css/main.b963954d.css",
+    "main.js": "/static/js/main.ef0cf262.js",
     "static/js/738.87b8ba98.chunk.js": "/static/js/738.87b8ba98.chunk.js",
     "static/js/466.1ae1eaaf.chunk.js": "/static/js/466.1ae1eaaf.chunk.js",
     "static/js/372.0f305f27.chunk.js": "/static/js/372.0f305f27.chunk.js",
@@ -16,8 +16,8 @@
     "static/media/pic.jpeg": "/static/media/pic.f54ae9d2275afcd3391a.jpeg",
     "static/media/wyelogo.png": "/static/media/wyelogo.288745d2e149e998926c.png",
     "index.html": "/index.html",
-    "main.7dc3a324.css.map": "/static/css/main.7dc3a324.css.map",
-    "main.41f2a041.js.map": "/static/js/main.41f2a041.js.map",
+    "main.b963954d.css.map": "/static/css/main.b963954d.css.map",
+    "main.ef0cf262.js.map": "/static/js/main.ef0cf262.js.map",
     "738.87b8ba98.chunk.js.map": "/static/js/738.87b8ba98.chunk.js.map",
     "466.1ae1eaaf.chunk.js.map": "/static/js/466.1ae1eaaf.chunk.js.map",
     "372.0f305f27.chunk.js.map": "/static/js/372.0f305f27.chunk.js.map",
@@ -31,7 +31,7 @@
     "496.5af1ddd5.chunk.js.map": "/static/js/496.5af1ddd5.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7dc3a324.css",
-    "static/js/main.41f2a041.js"
+    "static/css/main.b963954d.css",
+    "static/js/main.ef0cf262.js"
   ]
 }
