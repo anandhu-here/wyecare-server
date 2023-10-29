@@ -563,6 +563,18 @@ module.exports = (app, db) => {
             res.status(400).send({error:e.message})
         }
     })
+    app.get('/get/myagent', async(req, res)=>{
+        try{
+            const {agency_id} = req.query;
+            const agencyQuery = await db.query(`
+                select * from agency where id = ${agency_id}
+            `)
+            res.status(200).json(agencyQuery.rows)
+        } catch(e){
+            console.log(e, "suck")
+            res.status(400).send({error:e.message})
+        }
+    })
     app.post('/upload/dp', async(req, res)=>{
         const {id, dp} = req.body;
         try{
