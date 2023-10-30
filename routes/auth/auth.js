@@ -590,37 +590,23 @@ module.exports = (app, db) => {
     })
 
     app.post('/send/availabilty', async(req, res)=>{
-        const {carer_id, list} = req.body;
-
-        console.log(list , "lisyt");
+        const {carer_id, days, month, year} = req.body;
         try{
-            const condition = `carer_id = ${carer_id}`;
+            const query = await db.query(`
+                insert into availability (carer_id, days, month, year) values ($1, $2, $3, $4) returning *;
+            `, [carer_id, days, month, year])
 
-            let query = `UPDATE availability SET `;
-            list.map(day=>{
-                console.log(day, "day")
-                query += `${day.toLowerCase()} = 'TRUE', `;
-            })
-
-            console.log(query, "eiiewii")
-
-            query = query.slice(0, -2); // Remove the trailing comma and space
-            query += ` WHERE ${condition} returning *;`;
-
-            console.log(query, "quryyyy")
-
-            const update = await db.query(query);
-            res.status(200).send(update.rows)
+            res.status(200).send(query.rows[0])
         } catch(e){
             console.log(e, "suck")
             res.status(400).send({error:e.message})
         }
     })
     app.get('/get/availabilty', async(req, res)=>{
-        const {carer_id} = req.query;
+        const {carer_id, month, year} = req.query;
         try{
             
-            const update = await db.query(`select * from availability where carer_id = ${carer_id}`);
+            const update = await db.query(`select * from availability where carer_id = ${carer_id} and month = ${month} and year = ${year}`);
             res.status(200).send(update.rows[0])
 
         } catch(e){
