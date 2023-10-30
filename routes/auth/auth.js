@@ -607,6 +607,8 @@ module.exports = (app, db) => {
             query = query.slice(0, -2); // Remove the trailing comma and space
             query += ` WHERE ${condition} returning *;`;
 
+            console.log(query, "quryyyy")
+
             const update = await db.query(query);
             res.status(200).send(update.rows)
         } catch(e){
