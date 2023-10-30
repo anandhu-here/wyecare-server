@@ -259,10 +259,9 @@ module.exports = (app, db, io) =>{
 
     app.get('/get/carers/assign', async(req, res)=>{
         try{
-            const {agency_id, date} = req.query;
-            console.log(agency_id, "ppp888", date, "ppppp")
+            const {agency_id, month, year, day} = req.query;
             const carerQuery = await db.query(`
-                select * from carers where (agency_id = ${agency_id} or '${agency_id}' = any(agencies)) and carers.status = 1;
+                select * from carers join availability av on av.carer_id = carers.id where agency_id = ${agency_id} and '${day}'::jsonb = any(av.days) and av.month = ${month} and av.year = ${year} and carers.status = 1;
 
             `, [  ])
             res.status(200).send(carerQuery.rows)
