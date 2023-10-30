@@ -597,10 +597,9 @@ module.exports = (app, db) => {
             const condition = `carer_id = ${carer_id}`;
 
             let query = `UPDATE availability SET `;
-
-            for (var i = 0; i<list.length;i++) {
-                query += `${list[i]} = 'TRUE', `;
-            }
+            list.map(day=>{
+                query += `${day} = 'TRUE', `;
+            })
 
             query = query.slice(0, -2); // Remove the trailing comma and space
             query += ` WHERE ${condition} returning *;`;
