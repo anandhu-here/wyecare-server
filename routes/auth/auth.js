@@ -597,7 +597,7 @@ module.exports = (app, db) => {
                 (carer_id, days, month, year) 
                 values ($1, $2, $3, $4) 
                 on conflict (carer_id, month, year)
-                do update set availability.days = availability.days || $2::jsonb[]
+                do update set days = availability.days || $2::jsonb[]
                 returning *;
             `, [carer_id, days, month, year])
 
