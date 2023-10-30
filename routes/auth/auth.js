@@ -599,7 +599,6 @@ module.exports = (app, db) => {
             let query = `UPDATE availability SET `;
 
             for (var i = 0; i<list.length;i++) {
-                console.log(day, "dayyyy")
                 query += `${list[i]} = 'TRUE', `;
             }
 
