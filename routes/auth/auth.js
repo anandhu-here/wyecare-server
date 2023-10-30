@@ -599,8 +599,10 @@ module.exports = (app, db) => {
             let query = `UPDATE availability SET `;
             list.map(day=>{
                 console.log(day, "day")
-                query += `${day} = 'TRUE', `;
+                query += `${day.toLowerCase()} = 'TRUE', `;
             })
+
+            console.log(query, "eiiewii")
 
             query = query.slice(0, -2); // Remove the trailing comma and space
             query += ` WHERE ${condition} returning *;`;
