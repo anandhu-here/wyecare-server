@@ -593,7 +593,12 @@ module.exports = (app, db) => {
         const {carer_id, days, month, year} = req.body;
         try{
             const query = await db.query(`
-                insert into availability (carer_id, days, month, year) values ($1, $2, $3, $4) returning *;
+                insert into availability 
+                (carer_id, days, month, year) 
+                values ($1, $2, $3, $4) 
+                on conflict (carer_id, month, year)
+                do update set days = days || $2::jsonb[]
+                returning *;
             `, [carer_id, days, month, year])
 
             res.status(200).send(query.rows[0])
