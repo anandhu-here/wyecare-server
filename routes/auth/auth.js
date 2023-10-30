@@ -591,19 +591,20 @@ module.exports = (app, db) => {
 
     app.post('/send/availabilty', async(req, res)=>{
         const {carer_id, list} = req.body;
+
+        console.log(list , "lisyt");
         try{
             const condition = `carer_id = ${carer_id}`;
 
             let query = `UPDATE availability SET `;
 
-            for (const day in list) {
-                query += `${day} = 'TRUE', `;
+            for (var i = 0; i<list.length;i++) {
+                console.log(day, "dayyyy")
+                query += `${list[i]} = 'TRUE', `;
             }
 
             query = query.slice(0, -2); // Remove the trailing comma and space
             query += ` WHERE ${condition} returning *;`;
-
-            console.log(query, "query")
 
             const update = await db.query(query);
             res.status(200).send(update.rows)
