@@ -332,14 +332,17 @@ module.exports = (app, db) => {
     app.post('/update/profile', async(req, res)=>{
         const {updates, id, table} = req.body;
         try {
+
+            console.log(updates, "uppp")
             
             const condition = `id = ${id}`;
 
             let query = `UPDATE ${table} SET `;
 
-            for (const column in Object.keys(updates)) {
-                query += `${column} = '${updates[column]}', `;
-            }
+            Object.keys(updates).map(key=>{
+                query += `${key} = '${updates[key]}', `;
+            })
+
 
             query = query.slice(0, -2); // Remove the trailing comma and space
             query += ` WHERE ${condition};`;
