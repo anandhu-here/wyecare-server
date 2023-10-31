@@ -491,10 +491,21 @@ module.exports = (app, db) => {
         }
         
     })
+    
     app.get('/search/homes', async(req, res)=>{
         try {
             const {home} = req.query;
             const query = await db.query(`select home.*, users.email from home join users on users.id = home.user_id where company ilike '${home}%'`);
+            res.status(200).send(query.rows);
+        } catch (error) {
+            console.log(error, "errrrrr")
+            res.status(400).send({error})
+        }
+    })
+    app.get('/get/agent', async(req, res)=>{
+        try {
+            const {agency_id} = req.query;
+            const query = await db.query(`select agency.*, users.email from agency join users on users.id = agency.user_id where id = ${agency_id}`);
             res.status(200).send(query.rows);
         } catch (error) {
             console.log(error, "errrrrr")
