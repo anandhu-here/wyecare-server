@@ -505,7 +505,7 @@ module.exports = (app, db) => {
     app.get('/get/agent', async(req, res)=>{
         try {
             const {agency_id} = req.query;
-            const query = await db.query(`select agency.*, users.email from agency join users on users.id = agency.user_id where id = ${agency_id}`);
+            const query = await db.query(`select agency.*, users.email from agency join users on users.id = agency.user_id where agency.id = ${agency_id}`);
             res.status(200).send(query.rows);
         } catch (error) {
             console.log(error, "errrrrr")
