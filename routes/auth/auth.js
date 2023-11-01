@@ -505,6 +505,7 @@ module.exports = (app, db) => {
             res.status(200).send(query.rows[0])
         }
         catch(e){
+            console.log(e)
             res.status(400).send(e)
         }
         
