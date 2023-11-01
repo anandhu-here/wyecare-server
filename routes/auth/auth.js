@@ -500,7 +500,7 @@ module.exports = (app, db) => {
         const date = new Date();
         try{
             const query = await db.query(`
-                update carers set agency_id = ${agency_id}, status = 0 where carer_id = ${carer_id} returning *;
+                update carers set agency_id = ${agency_id}, status = 0 where id = ${carer_id} returning *;
             `)
             res.status(200).send(query.rows[0])
         }
@@ -516,7 +516,7 @@ module.exports = (app, db) => {
         const date = new Date();
         try{
             const query = await db.query(`
-                update carers set status = 1 where carer_id = ${carer_id} returning *;
+                update carers set status = 1 where id = ${carer_id} returning *;
             `)
             res.status(200).send(query.rows[0])
         }
