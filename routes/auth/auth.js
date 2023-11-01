@@ -491,6 +491,38 @@ module.exports = (app, db) => {
         }
         
     })
+
+
+
+    app.post('/carer/join-request', async (req, res)=>{
+        const {carer_id, agency_id} = req.body;
+        // db.Carer.findOne({where:{id:1}}).then(u=>u.destroy()).catch(e=>console.log(e))
+        const date = new Date();
+        try{
+            const query = await db.query(`
+                update carers set agency_id = ${agency_id}, status = 0 where carer_id = ${carer_id} returning *;
+            `)
+            res.status(200).send(query.rows[0])
+        }
+        catch(e){
+            res.status(400).send(e)
+        }
+        
+    })
+    app.post('/carer/accept-request', async (req, res)=>{
+        const {carer_id, agency_id} = req.body;
+        // db.Carer.findOne({where:{id:1}}).then(u=>u.destroy()).catch(e=>console.log(e))
+        const date = new Date();
+        try{
+            const query = await db.query(`
+                update carers set status = 1 where carer_id = ${carer_id} returning *;
+            `)
+            res.status(200).send(query.rows[0])
+        }
+        catch(e){
+            res.status(400).send(e)
+        }
+    })
     
     app.get('/search/homes', async(req, res)=>{
         try {
