@@ -254,7 +254,6 @@ module.exports = (app, db) => {
     app.post('/verify-user', async(req, res)=>{
         const { token, role } = req.body;
         try{
-            console.log("fuckkkkkk")
             const userData = verifyToken(token);
             const {role} = userData;
             if(role < 100){
