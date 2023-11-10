@@ -213,12 +213,14 @@ module.exports = (app, db) => {
     })
     app.post('/login', login, async(req, res)=>{
         const { email, password } = req.body;
+        console.log(email)
         try{
             const userQuery = await db.query(`
                 select * from users where email = $1
             `, [email])
 
             if(userQuery.rows.length > 0){
+                console.log(userQuery.rows[0])
                 const user = userQuery.rows[0];
                 const token = createToken(user);
                 var response = {
@@ -229,10 +231,14 @@ module.exports = (app, db) => {
                     }
                 }
                 var tables = ['agency', 'home', 'carers']
+
+                console.log(tables[user.role])
                 
                 const profile= await db.query(`
                     select * from ${tables[user.role]} where user_id = $1
                 `, [user.id])
+
+                console.log(profile, 'profile')
 
                 response.user.profile = profile.rows[0];
 
@@ -241,12 +247,14 @@ module.exports = (app, db) => {
                 
             }
             else{
+                console.log('errrrr')
                 res.status(401).send({error:'Unauthorized'})
             }
             
             
             
         }catch(e){
+            console.log(e, 'ee')
             res.status(400).send({error:e.message})
         }
         
@@ -595,7 +603,7 @@ module.exports = (app, db) => {
             `, [home_id])
             res.status(200).json(query.rows)
         } catch (error) {
-            res.status(400).send({error:e.message})
+            res.status(400).send({error:error.message})
         }
     })
     app.get('/get/agents', async(req, res)=>{
@@ -604,9 +612,9 @@ module.exports = (app, db) => {
                 select * from agency
             `)
             res.status(200).json(agencyQuery.rows)
-        } catch(e){
+        } catch(error){
             console.log(e, "suck")
-            res.status(400).send({error:e.message})
+            res.status(400).send({error:error.message})
         }
     })
     app.get('/get/myagent/carer', async(req, res)=>{
@@ -616,9 +624,9 @@ module.exports = (app, db) => {
                 select agency.*, users.email from agency join users on users.id = agency.user_id where agency.id = ${agency_id}
             `)
             res.status(200).json(agencyQuery.rows)
-        } catch(e){
+        } catch(error){
             console.log(e, "suck")
-            res.status(400).send({error:e.message})
+            res.status(400).send({error:error.message})
         }
     })
 
@@ -629,9 +637,9 @@ module.exports = (app, db) => {
                 update carers set profile_picture = $1 where id = $2 returning *;
             `, [dp, id])
             res.status(200).json(agencyQuery.rows[0])
-        } catch(e){
+        } catch(error){
             console.log(e, "suck")
-            res.status(400).send({error:e.message})
+            res.status(400).send({error:error.message})
         }
     })
 
