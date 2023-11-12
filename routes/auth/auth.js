@@ -396,6 +396,7 @@ module.exports = (app, db) => {
     }) 
     app.post('/remove/home', async(req, res)=>{
         const {home_id, token} = req.body;
+        console.log(home_id, token, 'hometoken')
         try {
 
             const {id} = verifyToken(token);
@@ -420,7 +421,7 @@ module.exports = (app, db) => {
             
 
         } catch (error) {
-            console.log(error)
+            console.log(error, 'error delete')
             res.status(500).send(error)
         }
     }) 
