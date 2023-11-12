@@ -408,16 +408,9 @@ module.exports = (app, db) => {
             
             const get = await db.query(`select active_agency from home where id = ${home_id}`);
             const agency_id = get.rows[0].active_agency;
-            if(agency_id === agency_query.rows[0].id){
-                const query = await db.query(`delete from home_agency where agency_id = ${agency_id} and home_id = ${home_id}`);
-                const query2 = await db.query(`update home set active_agency = NULL where id = ${home_id}`);
-                res.status(200).send({message:"OK"})
-            }
-
-            else{
-
-                res.status(403).send({message:"Agency not found"})
-            }
+            const query = await db.query(`delete from home_agency where agency_id = ${agency_id} and home_id = ${home_id}`);
+            const query2 = await db.query(`update home set active_agency = NULL where id = ${home_id}`);
+            res.status(200).send({message:"OK"})
             
 
         } catch (error) {
