@@ -335,6 +335,20 @@ module.exports = (app, db) => {
             res.status(500).send({error:e.message})
         }
     })
+    app.get('/get/home_staffs', async(req, res)=>{
+        try{
+            const {home_id} = req.query;
+            const userQuery = await db.query(`
+                select home_staff.*, home.company from home_staff 
+                join home on home.id = home_staff.home_id
+                where home_id = $1;
+            `, [ home_id ])
+            res.status(200).send(carerQuery.rows)
+        }
+        catch(e){
+            res.status(500).send({error:e.message})
+        }
+    })
 
     app.post('/update/profile', async(req, res)=>{
         const {updates, id, table} = req.body;
@@ -402,7 +416,7 @@ module.exports = (app, db) => {
             const {id} = verifyToken(token);
 
             const agency_query = await db.query(`select id from agency where user_id = ${id}`)
-            
+
             const agency_id = agency_query.rows[0].id
             const query = await db.query(`delete from home_agency where agency_id = ${agency_id} and home_id = ${home_id}`);
             const query2 = await db.query(`update home set active_agency = NULL where id = ${home_id}`);
