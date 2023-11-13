@@ -338,12 +338,18 @@ module.exports = (app, db) => {
     app.get('/get/home_staffs', async(req, res)=>{
         try{
             const {home_id} = req.query;
-            const userQuery = await db.query(`
+            const homeStaffQuery = await db.query(`
                 select home_staff.*, home.company from home_staff 
                 join home on home.id = home_staff.home_id
                 where home_id = $1;
-            `, [ home_id ])
-            res.status(200).send(carerQuery.rows)
+            `, [ home_id ]);
+            const guestStaffQuery = await db.query(`
+                select home_guest_user.*, home.company from home_guest_user
+                join home on home.id = home_guest_user.home_id
+                where home_id = $1;
+            `, [ home_id ]);
+            const results = [...homeStaffQuery.rows, ...guestStaffQuery.rows]
+            res.status(200).send(results)
         }
         catch(e){
             res.status(500).send({error:e.message})
