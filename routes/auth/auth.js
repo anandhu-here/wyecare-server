@@ -660,7 +660,7 @@ module.exports = (app, db) => {
                 insert into availability 
                 (carer_id, days, month, year) 
                 values ($1, $2, $3, $4) 
-                on conflict (month)
+                on conflict (carer_id, month)
                 do update set days = availability.days || $2::jsonb[]
                 returning *;
             `, [carer_id, days, month, year])
