@@ -657,11 +657,13 @@ module.exports = (app, db) => {
         const {carer_id, days, month, year} = req.body;
         try{
             const query = await db.query(`
-                INSERT INTO availability (carer_id, days, month, year)
-                VALUES ($1, $2, $3, $4)
-                ON CONFLICT (carer_id, month)
-                DO UPDATE SET days = CASE WHEN availability.carer_id = $1 THEN availability.days || $2::jsonb[] ELSE availability.days END
-                RETURNING *;
+                insert into availability 
+                (carer_id, days, month, year) 
+                values ($1, $2, $3, $4) 
+                on conflict (carer_id)
+                do update set days = availability.days || $2::jsonb[]
+                WHERE availability.carer_id = $1
+                returning *;
             `, [carer_id, days, month, year])
 
             res.status(200).send(query.rows[0])
