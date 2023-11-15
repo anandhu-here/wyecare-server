@@ -77,11 +77,11 @@ module.exports = (app, db, io) =>{
 
             const fcm_agency_query = await db.query(`select user_id from agency where id = ${agency_id}`);
 
-            const fcm_user_query = await db.query(`select id, fcm_query from users where id = ${fcm_agency_query.rows[0].user_id}`)
+            const fcm_user_query = await db.query(`select id, fcm_token from users where id = ${fcm_agency_query.rows[0].user_id}`)
 
             const fcm_query = await db.query(`select company from home where id = ${home_id}`)
             
-            sendNotification(fcm_user_query.rows[0].fcm_query, 'Shifts published', `${fcm_query.rows[0].company} has added new shifts`, shifts).then(response=>{
+            sendNotification(fcm_user_query.rows[0].fcm_token, 'Shifts published', `${fcm_query.rows[0].company} has added new shifts`, shifts).then(response=>{
                 console.log('notificaiton sent')
             }).catch(error=>{
                 console.log(error, 'fcm error')
