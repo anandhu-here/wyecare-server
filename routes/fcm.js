@@ -1,3 +1,4 @@
+const { sendNotification } = require("../firebase");
 
 module.exports = (app, db) => {
     app.post('/fcm/update-token', async(req, res)=>{
@@ -16,5 +17,24 @@ module.exports = (app, db) => {
             res.status(400).send(error)
         }
     })
+
+    // app.post('/fcm/send-token', async(req, res)=>{
+    //     const { userId} = req.body;
+    //     try{
+    //         const query = await db.query(`
+    //             select id from users where id = $1;
+    //         `, [userId])
+
+    //         sendNotification()
+            
+    //         res.status(200).send(query.rows[0])
+    //     }
+    //     catch(error){
+    //         console.log(error, 'error')
+    //         res.status(400).send(error)
+    //     }
+    // })
+
+
 
 }

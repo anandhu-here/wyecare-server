@@ -1,4 +1,5 @@
 const { verifyToken, checkShiftAssign, upload, hashPassword } = require("../controller/util");
+const { sendNotification } = require("../firebase");
 const { isAuth, isHome, isAdmin } = require("../middlewares/auth");
 const shift = require("../models/shift");
 
@@ -32,7 +33,7 @@ module.exports = (app, db, io) =>{
     })
     app.post('/shifts/add', isAuth, async(req, res)=>{
         
-        const { date, home_id, agency_id, patterns} = req.body;
+        const { date, home_id, agency_id, patterns, fcm_token} = req.body;
         const token = req.headers.authorization;
         
         const {id, user} = verifyToken(token);
@@ -58,7 +59,8 @@ module.exports = (app, db, io) =>{
                 shiftId = insertShiftQuery.rows[0].id;
             }
 
-            console.log(shiftId, "shift--")
+            
+            const shifts = [];
 
 
             for (const pattern of patterns) {
@@ -67,12 +69,19 @@ module.exports = (app, db, io) =>{
                     VALUES ($1, $2, $3, $4, $5, $6, $7)
                     ON CONFLICT (pattern, home_id, agency_id, shift_id)
                     DO UPDATE SET count = $4
+                    returning *;
                 `, [pattern.pattern, home_id, agency_id, pattern.count, shiftId, '{}', '{}']);
+
+                shifts.unshift(queryShiftHome.rows[0])
             }
-            
 
+            const fcm_query = await db.query(`select company from home where id = ${home_id}`)
             
-
+            sendNotification(fcm_token, 'Shifts published', `${fcm_query.company} has added new shifts`, shifts).then(response=>{
+                console.log('notificaiton sent')
+            }).catch(error=>{
+                console.log(error, 'fcm error')
+            })
             
             res.status(201).send({message:'Success'})
         }
