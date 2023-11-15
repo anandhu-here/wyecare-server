@@ -12,7 +12,7 @@ admin.initializeApp({
 
 
 
-export const sendNotification = (token, title, body, data) =>{
+const sendNotification = (token, title, body, data) =>{
     return new Promise((resolve, reject)=>{
         const message = {
             notification: {
@@ -31,3 +31,5 @@ export const sendNotification = (token, title, body, data) =>{
         })
     })
 }
+
+module.exports = {sendNotification}
