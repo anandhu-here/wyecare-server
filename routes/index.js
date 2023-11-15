@@ -2,7 +2,8 @@ const routes = [
     require('./auth/auth'),
     require('./shift'),
     require('./doc'),
-    require('./test')
+    require('./test'),
+    require('./fcm')
 
 ];
 
