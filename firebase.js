@@ -21,7 +21,7 @@ const sendNotification = (token, title, body, data) =>{
               data
             },
             data,
-            token: deviceToken,
+            token: token,
           };
       
         admin.messaging().send(message).then(response=>{
