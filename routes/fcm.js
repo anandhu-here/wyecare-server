@@ -9,8 +9,9 @@ module.exports = (app, db) => {
             res.status(200).send(query.rows[0])
         }
         catch(error){
+            console.log(error, 'error')
             res.status(400).send(error)
         }
     })
-    
+
 }
