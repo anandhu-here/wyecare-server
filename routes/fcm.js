@@ -5,7 +5,7 @@ module.exports = (app, db) => {
         console.log(token, userId, 'ff')
         try{
             const query = await db.query(`
-                update users set fcm_token = ${token} where id = ${userId} returning *;
+                update users set fcm_token = $1 where id = $2 returning *;
             `, [token. userId])
 
             
