@@ -16,7 +16,7 @@ const sendNotification = (token, title, body, data) =>{
     return new Promise((resolve, reject)=>{
         const message = {
             data:{
-                score:1
+                score:'1'
             },
             token: token,
           };
