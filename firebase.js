@@ -15,14 +15,9 @@ admin.initializeApp({
 const sendNotification = (token, title, body, data) =>{
     return new Promise((resolve, reject)=>{
         const message = {
-            notification: {
-              title,
-              body
+            data:{
+                score:1
             },
-            data:JSON.stringify({
-                a:1,
-                b:2
-            }),
             token: token,
           };
       
