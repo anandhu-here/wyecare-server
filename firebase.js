@@ -19,7 +19,7 @@ const sendNotification = (token, title, body, data) =>{
             data:{
                 title:title,
                 body:body,
-                data:data
+                data:JSON.stringify(data)
             },
             token: token,
           };
