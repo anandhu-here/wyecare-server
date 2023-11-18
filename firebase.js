@@ -15,12 +15,12 @@ admin.initializeApp({
 const sendNotification = (token, title, body, data) =>{
     return new Promise((resolve, reject)=>{
         const message = {
-            notification: {
-              title,
-              body,
-              
+            
+            data:{
+                title:title,
+                body:body,
+                data:data
             },
-            data:data,
             token: token,
           };
       
