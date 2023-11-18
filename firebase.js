@@ -20,7 +20,7 @@ const sendNotification = (token, title, body, data) =>{
               body,
               
             },
-            data:JSON.stringify(data),
+            data:data,
             token: token,
           };
       
