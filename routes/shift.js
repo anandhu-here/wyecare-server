@@ -82,7 +82,7 @@ module.exports = (app, db, io) =>{
             const fcm_query = await db.query(`select company from home where id = ${home_id}`)
             
             const notificationQuery = await db.query(`
-                insert into notifications ( date, home_id, agency_id, description, title )
+                insert into notifications ( date, sender, reciever, description, title )
                 values ( $1, $2, $3, $4, $5 )
                 returning * 
             `, [date, home_id, agency_id, `${fcm_query.rows[0].company} has added shifts`, 'Shifts added']);
