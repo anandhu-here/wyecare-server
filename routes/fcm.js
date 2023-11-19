@@ -25,7 +25,7 @@ module.exports = (app, db) => {
             `, [reciever])
 
             
-            res.status(200).send(query.rows[0])
+            res.status(200).send(query.rows)
         }
         catch(error){
             console.log(error, 'error')
