@@ -494,12 +494,11 @@ module.exports = (app, db) => {
             const fcm_user_query = await db.query(`select id, fcm_token from users where id = ${fcm_home_query.rows[0].user_id}`)
 
             const notificationQuery = await db.query(`
-                insert into notifications ( date, sender, reciever, description, title, isUnRead )
-                values ( $1, $2, $3, $4, $5, $6 )
+                insert into notifications ( date, sender, reciever, description, title, isUnRead, type)
+                values ( $1, $2, $3, $4, $5, $6, $7 )
                 returning * 
-            `, [date, agency_id, home_id, `${getCompanyQuery.rows[0].company} has sent a join request`, 'Join request', true]);
+            `, [date, agency_id, home_id, `${getCompanyQuery.rows[0].company} has sent a join request`, 'Join request', true, 'join']);
 
-            console.log(notificationQuery.rows, 'notii')
             sendNotification(fcm_user_query.rows[0].fcm_token, `${notificationQuery.rows[0].title}`, `${notificationQuery.rows[0].description}`, notificationQuery.rows[0]).then(response=>{
                 console.log('notificaiton sent')
             }).catch(error=>{
@@ -524,6 +523,26 @@ module.exports = (app, db) => {
             const query2 = await db.query(`
                 update home_agency set status = $3 where agency_id = $1 and home_id = $2;
             `, [agency_id, home_id, 1])
+
+            const getCompanyQuery = await db.query(`
+                select company from agency where id = ${agency_id};
+            `)
+
+            const fcm_home_query = await db.query(`select user_id, company from home where id = ${agency_id}`);
+
+            const fcm_user_query = await db.query(`select id, fcm_token from users where id = ${fcm_home_query.rows[0].user_id}`)
+
+            const notificationQuery = await db.query(`
+                insert into notifications ( date, sender, reciever, description, title, isUnRead, type)
+                values ( $1, $2, $3, $4, $5, $6, $7 )
+                returning * 
+            `, [date, home_id, agency_id, `${getCompanyQuery.rows[0].company} accepted your request`, 'Join request', true, 'accept']);
+
+            sendNotification(fcm_user_query.rows[0].fcm_token, `${notificationQuery.rows[0].title}`, `${notificationQuery.rows[0].description}`, notificationQuery.rows[0]).then(response=>{
+                console.log('notificaiton sent')
+            }).catch(error=>{
+                console.log(error, 'fcm error')
+            })
             res.status(200).send(query.rows[0]);
         }
         catch(e){
