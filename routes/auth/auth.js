@@ -474,6 +474,7 @@ module.exports = (app, db) => {
         const {home_id, agency_id} = req.body;
         // db.Carer.findOne({where:{id:1}}).then(u=>u.destroy()).catch(e=>console.log(e))
         const date = new Date();
+        console.log('jjjjoooinnnnn')
         try{
             const query = await db.query(`
                 insert into home_agency_request (home_id, agency_id, createdAt) values ($1, $2, $3)
@@ -497,6 +498,8 @@ module.exports = (app, db) => {
                 values ( $1, $2, $3, $4, $5, $6 )
                 returning * 
             `, [date, agency_id, home_id, `${getCompanyQuery.rows[0].company} has sent a join request`, 'Join request', true]);
+
+            console.log(notificationQuery.rows, 'notii')
             sendNotification(fcm_user_query.rows[0].fcm_token, 'Joining request', `${fcm_query.rows[0].company} has added new shifts`, notificationQuery.rows[0]).then(response=>{
                 console.log('notificaiton sent')
             }).catch(error=>{
