@@ -489,10 +489,9 @@ module.exports = (app, db) => {
                 select company from agency where id = ${agency_id};
             `)
 
-            const fcm_home_query = await db.query(`select user_id from home where id = ${home_id}`);
+            const fcm_home_query = await db.query(`select user_id, company from home where id = ${home_id}`);
 
             const fcm_user_query = await db.query(`select id, fcm_token from users where id = ${fcm_home_query.rows[0].user_id}`)
-            console.log(fcm_user_query.rows[0], 'token')
 
             const notificationQuery = await db.query(`
                 insert into notifications ( date, sender, reciever, description, title, isUnRead )
@@ -501,7 +500,7 @@ module.exports = (app, db) => {
             `, [date, agency_id, home_id, `${getCompanyQuery.rows[0].company} has sent a join request`, 'Join request', true]);
 
             console.log(notificationQuery.rows, 'notii')
-            sendNotification(fcm_user_query.rows[0].fcm_token, 'Joining request', `${fcm_query.rows[0].company} has added new shifts`, notificationQuery.rows[0]).then(response=>{
+            sendNotification(fcm_user_query.rows[0].fcm_token, `${notificationQuery.rows[0].title}`, `${notificationQuery.rows[0].description}`, notificationQuery.rows[0]).then(response=>{
                 console.log('notificaiton sent')
             }).catch(error=>{
                 console.log(error, 'fcm error')
