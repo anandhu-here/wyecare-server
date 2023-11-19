@@ -528,7 +528,7 @@ module.exports = (app, db) => {
                 select company from agency where id = ${agency_id};
             `)
 
-            const fcm_home_query = await db.query(`select user_id, company from home where id = ${agency_id}`);
+            const fcm_home_query = await db.query(`select user_id, company from agency where id = ${agency_id}`);
 
             const fcm_user_query = await db.query(`select id, fcm_token from users where id = ${fcm_home_query.rows[0].user_id}`)
 
