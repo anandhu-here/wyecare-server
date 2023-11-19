@@ -509,6 +509,7 @@ module.exports = (app, db) => {
             res.status(200).send(query.rows[0])
         }
         catch(e){
+            console.log(e, 'eee')
             res.status(400).send(e)
         }
         
@@ -607,8 +608,6 @@ module.exports = (app, db) => {
                 inner join users on users.id = home.user_id
                 where home_agency.agency_id = $1
             `, [ agency_id ])
-
-            console.log(agencyQuery.rows, "9090900")
             res.status(200).json(agencyQuery.rows)
         } catch(e){
             console.log(e)
