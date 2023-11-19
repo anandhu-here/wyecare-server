@@ -85,7 +85,7 @@ module.exports = (app, db, io) =>{
                 insert into notifications ( date, sender, reciever, description, title, isUnRead )
                 values ( $1, $2, $3, $4, $5, $6 )
                 returning * 
-            `, [date, home_id, agency_id, `${fcm_query.rows[0].company} has added shifts`, 'Shifts added', false]);
+            `, [date, home_id, agency_id, `${fcm_query.rows[0].company} has added shifts`, 'Shifts added', true]);
             sendNotification(fcm_user_query.rows[0].fcm_token, 'Shifts published', `${fcm_query.rows[0].company} has added new shifts`, notificationQuery.rows[0]).then(response=>{
                 console.log('notificaiton sent')
             }).catch(error=>{

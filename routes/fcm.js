@@ -33,11 +33,11 @@ module.exports = (app, db) => {
         }
     })
     app.post('/fcm/read-notification', async(req, res)=>{
-        const { reciever } = req.body;
+        const { id } = req.body;
         try{
             const query = await db.query(`
-                update notifications set isunread = false where reciever = $1
-            `, [reciever])
+                update notifications set isunread = false where id = $1
+            `, [id])
 
             
             res.status(200).send(query.rows)
