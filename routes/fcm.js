@@ -32,6 +32,21 @@ module.exports = (app, db) => {
             res.status(400).send(error)
         }
     })
+    app.post('/fcm/read-notification', async(req, res)=>{
+        const { reciever } = req.body;
+        try{
+            const query = await db.query(`
+                update notifications set isunread = false where reciever = $1
+            `, [reciever])
+
+            
+            res.status(200).send(query.rows)
+        }
+        catch(error){
+            console.log(error, 'error')
+            res.status(400).send(error)
+        }
+    })
 
     // app.post('/fcm/send-token', async(req, res)=>{
     //     const { userId} = req.body;
