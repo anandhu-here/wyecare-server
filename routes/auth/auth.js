@@ -1,4 +1,5 @@
 const { hashPassword, createToken, comparePassord, verifyToken, createTokenGuest } = require("../../controller/util");
+const { sendNotification } = require("../../firebase");
 const { login, signup, isAdmin, isAuth } = require("../../middlewares/auth");
 
 
@@ -482,6 +483,25 @@ module.exports = (app, db) => {
                 (home_id, agency_id, status)
                 values($1, $2, $3)
             `, [home_id, agency_id, 0])
+
+            const getCompanyQuery = await db.query(`
+                select company from agency where id = ${agency_id};
+            `)
+
+            const fcm_agency_query = await db.query(`select user_id from agency where id = ${home_id}`);
+
+            const fcm_user_query = await db.query(`select id, fcm_token from users where id = ${fcm_agency_query.rows[0].user_id}`)
+
+            const notificationQuery = await db.query(`
+                insert into notifications ( date, sender, reciever, description, title, isUnRead )
+                values ( $1, $2, $3, $4, $5, $6 )
+                returning * 
+            `, [date, agency_id, home_id, `${getCompanyQuery.rows[0].company} has sent a join request`, 'Join request', true]);
+            sendNotification(fcm_user_query.rows[0].fcm_token, 'Joining request', `${fcm_query.rows[0].company} has added new shifts`, notificationQuery.rows[0]).then(response=>{
+                console.log('notificaiton sent')
+            }).catch(error=>{
+                console.log(error, 'fcm error')
+            })
             res.status(200).send(query.rows[0])
         }
         catch(e){
@@ -527,6 +547,7 @@ module.exports = (app, db) => {
         }
         
     })
+    
     app.post('/carer/accept-request', async (req, res)=>{
         const {carer_id, agency_id} = req.body;
         // db.Carer.findOne({where:{id:1}}).then(u=>u.destroy()).catch(e=>console.log(e))
@@ -684,6 +705,9 @@ module.exports = (app, db) => {
             res.status(400).send({error:e.message})
         }
     })
+
+
+    
     
     
 }
