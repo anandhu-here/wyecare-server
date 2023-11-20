@@ -220,6 +220,8 @@ module.exports = (app, db) => {
                 select * from users where email = $1
             `, [email])
 
+            
+
             if(userQuery.rows.length > 0){
                 console.log(userQuery.rows[0])
                 const user = userQuery.rows[0];
@@ -232,15 +234,9 @@ module.exports = (app, db) => {
                     }
                 }
                 var tables = ['agency', 'home', 'carers']
-
-                console.log(tables[user.role])
-                
                 const profile= await db.query(`
                     select * from ${tables[user.role]} where user_id = $1
                 `, [user.id])
-
-                console.log(profile, 'profile')
-
                 response.user.profile = profile.rows[0];
 
                 res.status(200).send(response)

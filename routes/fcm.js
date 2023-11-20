@@ -34,6 +34,9 @@ module.exports = (app, db) => {
     })
     app.post('/fcm/read-notification', async(req, res)=>{
         const { id } = req.body;
+
+
+        console.log('fcmmmmm')
         try{
             const query = await db.query(`
                 update notifications set isunread = false
