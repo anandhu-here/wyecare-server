@@ -75,6 +75,8 @@ module.exports = (app, db, io) =>{
                 shifts.unshift(queryShiftHome.rows[0])
             }
 
+            console.log(shifts, 'shifts')
+
             const fcm_agency_query = await db.query(`select user_id from agency where id = ${agency_id}`);
 
             const fcm_user_query = await db.query(`select id, fcm_token from users where id = ${fcm_agency_query.rows[0].user_id}`)
@@ -205,7 +207,6 @@ module.exports = (app, db, io) =>{
         console.log("mairuu")
         const token = req.headers.authorization;
         const { month, id } = req.query;
-        console.log(id, "iddd")
         try{
             const query = await db.query(`
                 select shift_home.*,shift.date, shift.custom,home.company from shift_home
