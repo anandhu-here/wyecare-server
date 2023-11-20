@@ -589,11 +589,7 @@ module.exports = (app, db) => {
     app.get('/search/homes', async(req, res)=>{
         try {
             const {home} = req.query;
-            const query = await db.query(`
-            select home.*, users.email, home_agency.status from home 
-            join home_agency on home.id = home_agency.home_id 
-            join users on users.id = home.user_id
-            where company ilike '${home}%'`);
+            const query = await db.query(`select home.*, users.email from home join users on users.id = home.user_id where company ilike '${home}%'`);
             res.status(200).send(query.rows);
         } catch (error) {
             console.log(error, "errrrrr")
