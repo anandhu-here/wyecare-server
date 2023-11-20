@@ -36,8 +36,8 @@ module.exports = (app, db) => {
         const { id } = req.body;
         try{
             const query = await db.query(`
-                update notifications set isunread = false where id = $1
-            `, [id])
+                update notifications set isunread = false
+            `)
 
             
             res.status(200).send(query.rows)

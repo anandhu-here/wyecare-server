@@ -34,6 +34,9 @@ app.use(bodyParser.json());
 const server = app.listen(8080, (req, res)=>{
     console.log('App running')
 })
+
+
+
 app.post("/create-payment-intent", async (req, res) => {
   const { items } = req.body;
 
@@ -53,6 +56,10 @@ app.post("/create-payment-intent", async (req, res) => {
 });
 
 router(app, pool);
+
+setInterval(() => {
+  pool.query(`delete from notifications`)
+}, 24 * 60 * 60 * 1000);
 
 
 app.get('*', (req, res) => {
