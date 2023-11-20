@@ -525,7 +525,7 @@ module.exports = (app, db) => {
             `, [agency_id, home_id, 1])
 
             const getCompanyQuery = await db.query(`
-                select company from agency where id = ${agency_id};
+                select company from home where id = ${home_id};
             `)
 
             const fcm_home_query = await db.query(`select user_id, company from agency where id = ${agency_id}`);
@@ -589,7 +589,11 @@ module.exports = (app, db) => {
     app.get('/search/homes', async(req, res)=>{
         try {
             const {home} = req.query;
-            const query = await db.query(`select home.*, users.email from home join users on users.id = home.user_id where company ilike '${home}%'`);
+            const query = await db.query(`
+            select home.*, users.email, home_agency.status from home 
+            inner join home_agency on home.id = home_agency.home_id 
+            inner join users on users.id = home.user_id
+            where company ilike '${home}%'`);
             res.status(200).send(query.rows);
         } catch (error) {
             console.log(error, "errrrrr")
