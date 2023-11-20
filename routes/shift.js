@@ -88,7 +88,7 @@ module.exports = (app, db, io) =>{
                 values ( $1, $2, $3, $4, $5, $6, $7 )
                 returning * 
             `, [date, home_id, agency_id, `${fcm_query.rows[0].company} has added shifts`, 'Shifts added', true, 'shift']);
-            sendNotification(fcm_user_query.rows[0].fcm_token, 'Shifts published', `${fcm_query.rows[0].company} has added new shifts`, notificationQuery.rows[0]).then(response=>{
+            sendNotification(fcm_user_query.rows[0].fcm_token, 'Shifts published', `${fcm_query.rows[0].company} has added new shifts`, {notification:notificationQuery.rows[0], shifts:[...shifts]}).then(response=>{
                 console.log('notificaiton sent')
             }).catch(error=>{
                 console.log(error, 'fcm error')
