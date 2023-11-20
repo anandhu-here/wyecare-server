@@ -591,8 +591,8 @@ module.exports = (app, db) => {
             const {home} = req.query;
             const query = await db.query(`
             select home.*, users.email, home_agency.status from home 
-            inner join home_agency on home.id = home_agency.home_id 
-            inner join users on users.id = home.user_id
+            join home_agency on home.id = home_agency.home_id 
+            join users on users.id = home.user_id
             where company ilike '${home}%'`);
             res.status(200).send(query.rows);
         } catch (error) {
