@@ -305,6 +305,14 @@ module.exports = (app, db, io) =>{
                     returning *
                 `, [carer_ids, completed])
 
+                
+            }
+            
+            
+            res.status(201).send({message:'Assigned'});
+
+            for (var shift of assigned){
+                const { shift_home_id, carer_ids, completed} = shift;
                 const shift_query = await db.query(`
                     SELECT shift_home.*, shift.date, home.company
                     FROM shift_home
@@ -332,14 +340,6 @@ module.exports = (app, db, io) =>{
                     });
                 }
             }
-
-
-            const message = {
-                
-              };
-            
-            
-            res.status(201).send({message:'Assigned'});
         }
         catch(e){
             console.log(e, "endiii")
