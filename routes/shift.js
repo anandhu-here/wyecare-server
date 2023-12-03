@@ -302,6 +302,7 @@ module.exports = (app, db, io) =>{
                     set assigned = $1::jsonb[],
                         completed = $2::jsonb[]
                     where id = ${shift_home_id}
+                    returning *
                 `, [carer_ids, completed])
                 for(var carer_id of carer_ids){
                     const user = await db.query(`select carers.id, users.fcm_token from carers join users on users.id = carers.user_id where carers.id = ${carer_id};`)
@@ -318,7 +319,7 @@ module.exports = (app, db, io) =>{
                             sound: 'default',
                             title: 'Shifts assigned',
                             body: '',
-                            data: { someData: 'goes here' },
+                            data: { shift: JSON.stringify(set_query.rows[0]) },
                         }),
                     });
                 }
