@@ -304,7 +304,7 @@ module.exports = (app, db, io) =>{
                     where id = ${shift_home_id}
                 `, [carer_ids, completed])
                 for(var carer_id of carer_ids){
-                    const user = await db.query(`select carers.id, users.fcm_token from carers where id = ${carer_id} join users on users.id === carers.user_id`)
+                    const user = await db.query(`select carers.id, users.fcm_token from carers join users on users.id === carers.user_id where id = ${carer_id};`)
 
                     await fetch('https://exp.host/--/api/v2/push/send', {
                         method: 'POST',
