@@ -310,7 +310,7 @@ module.exports = (app, db, io) =>{
                     FROM shift_home
                     join shift on shift.id = shift_home.shift_id
                     join home on home.id = shift_home.home_id
-                    where shift_home_id = ${shift_home_id}
+                    where shift_home.id = ${shift_home_id}
                 `)
                 for(var carer_id of carer_ids){
                     const user = await db.query(`select carers.id, users.fcm_token from carers join users on users.id = carers.user_id where carers.id = ${carer_id};`)
