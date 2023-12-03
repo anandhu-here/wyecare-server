@@ -304,6 +304,14 @@ module.exports = (app, db, io) =>{
                     where id = ${shift_home_id}
                     returning *
                 `, [carer_ids, completed])
+
+                const shift_query = await db.query(`
+                    SELECT shift_home.*, shift.date, home.company
+                    FROM shift_home
+                    join shift on shift.id = shift_home.shift_id
+                    join home on home.id = shift_home.home_id
+                    where shift_home_id = ${shift_home_id}
+                `)
                 for(var carer_id of carer_ids){
                     const user = await db.query(`select carers.id, users.fcm_token from carers join users on users.id = carers.user_id where carers.id = ${carer_id};`)
                     console.log(user.rows[0], 'tokennnnn')
@@ -319,7 +327,7 @@ module.exports = (app, db, io) =>{
                             sound: 'default',
                             title: 'Shifts assigned',
                             body: '',
-                            data: { shift: JSON.stringify(set_query.rows[0]) },
+                            data: { shift: JSON.stringify(shift_query.rows[0])},
                         }),
                     });
                 }
