@@ -1,6 +1,16 @@
-POST http://localhost:3000/delete 
-Content-Type: application/json
+POST https://fcm.googleapis.com/v1/projects/wyecare/messages:send HTTP/1.1
+Content-Type:application/json
+Authorization: Bearer BMOrMuwqlUXT9KfllDkDYEkUC6VGEaqqNXMboWYWjyjRnShnia0YvavqWxFERWb-GsW6-TWVshfwP5XusraLGsU
+
 
 {
-    "email":"joyal@gmail.com"
+  "message":{
+    "token" : "detUJ7WkGCk1FXfnUEar_W:APA91bFCuJWgTX_jh7xyj8su1CAh0xFptD3LHkgkuv81NSyawCHgfG1hzOJY96G4FpqNbN9LLefFD8au7X7UGM_J3mcnpfifom9L1hP9fgReSCXhzdtOChk6BSwmy_SlUrSmpLrawrQB",
+    "data": {
+      "score": "5x1",
+      "time": "15:10"
+    },
+    "android": {
+      "direct_boot_ok": true,
+    },
 }

@@ -303,7 +303,32 @@ module.exports = (app, db, io) =>{
                         completed = $2::jsonb[]
                     where id = ${shift_home_id}
                 `, [carer_ids, completed])
+                for(var carer_id of carer_ids){
+                    const user = await db.query(`select carers.id, users.fcm_token from carers where id = ${carer_id} join users on users.id === carers.user_id`)
+
+                    await fetch('https://exp.host/--/api/v2/push/send', {
+                        method: 'POST',
+                        headers: {
+                        Accept: 'application/json',
+                        'Accept-encoding': 'gzip, deflate',
+                        'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            to: user.rows[0].fcm_token,
+                            sound: 'default',
+                            title: 'Shifts assigned',
+                            body: '',
+                            data: { someData: 'goes here' },
+                        }),
+                    });
+                }
             }
+
+
+            const message = {
+                
+              };
+            
             
             res.status(201).send({message:'Assigned'});
         }
