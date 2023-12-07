@@ -212,6 +212,29 @@ module.exports = (app, db) => {
             res.status(400).send(error)
         }
     })
+    app.post('/remove-carer', async(req, res)=>{
+        try {
+            const {carer_id, agency_id} = req.body;
+            const query = await db.query(`update carers set status = 0 where id = ${carer_id} and agency_id = NULL`)
+            res.status(201).send({message:'Success'})
+        } catch (error) {
+            console.log(error, "eee")
+            res.status(400).send(error)
+        }
+    })
+    app.post('/leave-agency-carer', async(req, res)=>{
+        try {
+            const {carer_id, agency_id} = req.body;
+            const query = await db.query(`update carers set status = 0 where id = ${carer_id}`)
+            res.status(201).send({message:'Success'})
+        } catch (error) {
+            console.log(error, "eee")
+            res.status(400).send(error)
+        }
+    })
+
+
+    
     app.post('/login', login, async(req, res)=>{
         const { email, password } = req.body;
         console.log(email)
@@ -378,6 +401,17 @@ module.exports = (app, db) => {
 
         } catch (error) {
             console.log(error)
+            res.status(500).send(error)
+        }
+    })
+
+    
+
+    app.post('/carer/leave-agent', async(req, res)=>{
+        try{
+            
+        }
+        catch(error){
             res.status(500).send(error)
         }
     })
